@@ -21,6 +21,13 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="domain\domain.h" />
+    <ClInclude Include="domain\enteties\driver.h" />
+    <ClInclude Include="domain\enteties\passenger.h" />
+    <ClInclude Include="domain\enteties\user.h" />
+    <ClInclude Include="lib\lib.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

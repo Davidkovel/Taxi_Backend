@@ -16,6 +16,7 @@ public:
 		{
 		case 1:
 			booking.set_information_for_booking_taxi();
+			booking.displayBookingInfo();
 			cout << "The order is succesfuly booked. Wait for your taxi" << endl;
 		default:
 			break;

@@ -1,5 +1,6 @@
 #include "../domain/domain.h"
 #include "../presentation/console_ui.h"
+#include "../use_cases/obs.h"
 int main()
 {
     cout << "[INFO] The programm started well" << endl;

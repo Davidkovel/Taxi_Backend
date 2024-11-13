@@ -9,6 +9,7 @@ private:
     string toAddress;
     double cost;
 public:
+    Booking() = default;
     Booking(const string& from, const string& to, double cost)
         : fromAddress(from), toAddress(to), cost(cost) {}
 
@@ -27,12 +28,14 @@ public:
     {
         string from, to;
         cout << "Enter start address: ";
-        cin >> from;
+        cin.ignore();
+        getline(cin, from);
         cout << "Enter destination address: ";
-        cin >> to;
+        getline(cin, to);
 
-        this->fromAddress = fromAddress;
-        this->toAddress = toAddress;
+        this->fromAddress = from;
+        this->toAddress = to;
+        calculateFare(fromAddress, toAddress);
     }
 
     void displayBookingInfo() const {

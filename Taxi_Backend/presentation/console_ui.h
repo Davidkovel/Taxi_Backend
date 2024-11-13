@@ -2,11 +2,11 @@
 #define CONSOLE_UI_H
 
 #include "../presentation/user_interface.h"
-// #include "../use_cases/obs.h"
+#include "../use_cases/obs.h"
 
 class CONSOLE_UI : virtual public IUser {
 private:
-   // OBS obs;
+    OBS obs;
 public:
     CONSOLE_UI()
     {
@@ -24,7 +24,7 @@ public:
         int choice;
         cin >> choice;
 
-        // obs.call_function(choice);
+        obs.call_function(choice);
     }
 
     void registerUser(User* user) override {

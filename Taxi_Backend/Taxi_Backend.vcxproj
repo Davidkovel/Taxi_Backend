@@ -19,14 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="domain\domain.h" />
     <ClInclude Include="domain\enteties\driver.h" />
     <ClInclude Include="domain\enteties\passenger.h" />
     <ClInclude Include="domain\enteties\user.h" />
     <ClInclude Include="lib\lib.h" />
+    <ClInclude Include="presentation\console_ui.h" />
+    <ClInclude Include="presentation\user_interface.h" />
+    <ClInclude Include="use_cases\booking.h" />
+    <ClInclude Include="use_cases\obs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -1,12 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="lib">
+      <UniqueIdentifier>{e5dc229e-55c4-4fd5-ac51-d5dc18e24e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain">
+      <UniqueIdentifier>{496fcb3d-4b6b-4b21-864d-8817fa370a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain\enteties">
+      <UniqueIdentifier>{f1469729-e8ef-4b1b-b797-e6cb558de5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="presentation">
+      <UniqueIdentifier>{d4449aae-f727-442a-ac52-5e72e940106c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="use_cases">
+      <UniqueIdentifier>{45087a74-3bb9-4125-89f4-ae2cf8b69d11}</UniqueIdentifier>
+    </Filter>
     <Filter Include="main">
-      <UniqueIdentifier>{60d50ef0-e5db-4009-8091-092e9fe3b9d5}</UniqueIdentifier>
+      <UniqueIdentifier>{897bb3a0-619a-4fb2-aaaf-a30848dd8084}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClInclude Include="lib\lib.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="use_cases\booking.h">
+      <Filter>use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\user.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\domain.h">
+      <Filter>domain</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\driver.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\passenger.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+    <ClInclude Include="use_cases\obs.h">
+      <Filter>use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\user_interface.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\console_ui.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main\main.cpp">
       <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>

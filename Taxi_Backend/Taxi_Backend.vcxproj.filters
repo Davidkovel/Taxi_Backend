@@ -19,6 +19,18 @@
     <Filter Include="main">
       <UniqueIdentifier>{897bb3a0-619a-4fb2-aaaf-a30848dd8084}</UniqueIdentifier>
     </Filter>
+    <Filter Include="infrastructure">
+      <UniqueIdentifier>{092b0ffd-df25-4147-aa59-7fc9da16db8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository">
+      <UniqueIdentifier>{8fc117d6-a7e2-47e7-a947-a37b807c214d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\database">
+      <UniqueIdentifier>{9a697feb-3330-4a4f-b6a5-355ac12f0856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="presentation\repos">
+      <UniqueIdentifier>{9a2545fe-a781-4ee5-b800-3fc1a8400204}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\lib.h">
@@ -48,10 +60,22 @@
     <ClInclude Include="presentation\console_ui.h">
       <Filter>presentation</Filter>
     </ClInclude>
+    <ClInclude Include="infrastructure\database\db_connection.h">
+      <Filter>infrastructure\database</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\repos\interface_user_repository.h">
+      <Filter>presentation\repos</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\repository\db_user_repository.h">
+      <Filter>infrastructure\repository</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main\main.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="infrastructure\repository\db_user_repository.cpp">
+      <Filter>infrastructure\repository</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

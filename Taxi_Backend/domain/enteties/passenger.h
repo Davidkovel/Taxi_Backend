@@ -23,7 +23,7 @@ private:
     string password;
 
 public:
-    Passenger(const string& name, int age, const string& email, const string& password) : User(name, age, email){
+    Passenger(const string& name, int age, const string& email, const string& password) : User(name, age, email) {
         this->password = password;
     }
 

@@ -2,7 +2,7 @@
 #define BOOKING_H
 
 #include "../domain/domain.h"
-#include "../infrastructure/repository/order_repository/order_repos.h"
+#include "../infrastructure/repository/order_repository.h"
 
 class Booking {
 private:
@@ -13,8 +13,8 @@ private:
     int user_id;
 public:
     Booking() = default;
-    Booking(const string& from, const string& to, double cost)
-        : fromAddress(from), toAddress(to), cost(cost), user_id(1){}
+    Booking(const string& from, const string& to, double cost, SQLiteOrderRepository* repo, int userId)
+        : fromAddress(from), toAddress(to), cost(cost), orderRepo(repo), user_id(userId) {}
 
     void bookTaxi(const string& from, const string& to) {
         double fare = calculateFare(from, to);

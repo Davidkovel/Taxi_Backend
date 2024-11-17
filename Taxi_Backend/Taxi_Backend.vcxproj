@@ -26,8 +26,7 @@
     <ClInclude Include="infrastructure\database\db_connection.h" />
     <ClInclude Include="infrastructure\model\order_model\order_model.h" />
     <ClInclude Include="infrastructure\repository\db_user_repository.h" />
-    <ClInclude Include="infrastructure\repository\order_repository\order_repos.h" />
-    <ClInclude Include="infrastructure\repository\user_repository\user_repos.h" />
+    <ClInclude Include="infrastructure\repository\order_repository.h" />
     <ClInclude Include="lib\lib.h" />
     <ClInclude Include="presentation\console_ui.h" />
     <ClInclude Include="presentation\repos\interface_order_repository.h" />
@@ -38,8 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="infrastructure\repository\db_user_repository.cpp" />
-    <ClCompile Include="infrastructure\repository\order_repository\order_repos.cpp" />
-    <ClCompile Include="infrastructure\repository\user_repository\user_repos.cpp" />
+    <ClCompile Include="infrastructure\repository\order_repository.cpp" />
     <ClCompile Include="main\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

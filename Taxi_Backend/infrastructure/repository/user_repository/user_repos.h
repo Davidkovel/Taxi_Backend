@@ -1,8 +1,10 @@
 // SQLiteUserRepository.h
-#ifndef SQLITE_USER_REPOSITORY_H
-#define SQLITE_USER_REPOSITORY_H
-#include "../database/db_connection.h"
-#include "../../presentation/repos/interface_user_repository.h"
+#ifndef USER_REPOS_H
+#define USER_REPOS_H
+
+#include "../../database/db_connection.h"
+#include "../../../presentation/repos/interface_user_repository.h"
+
 // #include "../../application/interfaces/IUserRepository.h"
 // #include "../database/DatabaseConnection.h"
 
@@ -14,4 +16,5 @@ public:
 private:
     DatabaseConnection* dbConn;
 };
-#endif // SQLITE_USER_REPOSITORY_H
+
+#endif // USER_REPOS_H

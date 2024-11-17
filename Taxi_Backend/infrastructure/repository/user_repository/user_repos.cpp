@@ -1,6 +1,8 @@
 // SQLiteUserRepository.cpp
-#include "db_user_repository.h"
-SQLiteUserRepository::SQLiteUserRepository(DatabaseConnection* dbConn) : dbConn(dbConn) {}
+#include "user_repos.h"
+
+SQLiteUserRepository::SQLiteUserRepository(DatabaseConnection * dbConn) : dbConn(dbConn) {}
+
 void SQLiteUserRepository::createUser(const User& user) {
     string sql = "INSERT INTO users (name, age, email, role) VALUES (?, ?, ?, ?);";
     sqlite3_stmt* stmt;

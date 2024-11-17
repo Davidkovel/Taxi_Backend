@@ -19,6 +19,12 @@ public:
     {
         return db;
     }
+    
+    sqlite3* closeConnection()
+    {
+        sqlite3_close(db);
+        return db;
+    }
 
     ~DatabaseConnection()
     {

@@ -2,24 +2,28 @@
 #define BOOKING_H
 
 #include "../domain/domain.h"
+#include "../infrastructure/repository/order_repository/order_repos.h"
 
 class Booking {
 private:
     string fromAddress;
     string toAddress;
     double cost;
+    SQLiteOrderRepository* orderRepo;
+    int user_id;
 public:
     Booking() = default;
     Booking(const string& from, const string& to, double cost)
-        : fromAddress(from), toAddress(to), cost(cost) {}
+        : fromAddress(from), toAddress(to), cost(cost), user_id(1){}
 
     void bookTaxi(const string& from, const string& to) {
         double fare = calculateFare(from, to);
         cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
+        orderRepo->add_order(user_id, from, to, "Completed", fare);
     }
 
     double calculateFare(const string& from, const string& to) {
-        this->cost = 10.0 + (to.length() - from.length()) * 0.5;
+        this->cost = 10; // TEMPORALY
         cout << "Price will be " << this->cost << endl;
         return this->cost;
     }
@@ -35,7 +39,8 @@ public:
 
         this->fromAddress = from;
         this->toAddress = to;
-        calculateFare(fromAddress, toAddress);
+        displayBookingInfo();
+        bookTaxi(from, to);
     }
 
     void displayBookingInfo() const {

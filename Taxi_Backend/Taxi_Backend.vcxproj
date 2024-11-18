@@ -24,6 +24,7 @@
     <ClInclude Include="domain\enteties\passenger.h" />
     <ClInclude Include="domain\enteties\user.h" />
     <ClInclude Include="infrastructure\database\db_connection.h" />
+    <ClInclude Include="infrastructure\db_provider.h" />
     <ClInclude Include="infrastructure\model\order_model\order_model.h" />
     <ClInclude Include="infrastructure\repository\db_user_repository.h" />
     <ClInclude Include="infrastructure\repository\order_repository.h" />
@@ -33,7 +34,7 @@
     <ClInclude Include="presentation\repos\interface_user_repository.h" />
     <ClInclude Include="presentation\user_interface.h" />
     <ClInclude Include="use_cases\booking.h" />
-    <ClInclude Include="use_cases\obs.h" />
+    <ClInclude Include="use_cases\dto.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="infrastructure\repository\db_user_repository.cpp" />

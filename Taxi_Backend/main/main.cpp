@@ -1,32 +1,45 @@
 #include "../domain/domain.h"
 #include "../presentation/console_ui.h"
-#include "../use_cases/obs.h"
+#include "../use_cases/dto.h"
 
 // db connection
 #include "../infrastructure/database/db_connection.h"
 #include "../infrastructure/repository/db_user_repository.h"
 #include "../infrastructure/repository/order_repository.h"
+#include "../infrastructure/db_provider.h"
 
 int main()
 {
-    cout << "[INFO] The programm started well" << endl;
-    DatabaseConnection dbConn("example.db");
-    SQLiteUserRepository userRepository(&dbConn);
-    SQLiteOrderRepository orderRepository(&dbConn);
+    cout << "[INFO] The program started well" << endl;
+    string db_path = "example.db";
+    // Initialize DatabaseProvider
+    DatabaseProvider dbProvider(db_path);
 
-    CONSOLE_UI ui;
+    CONSOLE_UI ui(&dbProvider);
 
-    // Creation user to db ---
-    // Passenger passenger = Passenger("David Doen", 22, "john@example.com", "password123");
-    // userRepository.createUser(passenger);
-    
-    // Creation order to db ---
-    Booking booking("Start Address", "Destination Address", 0.0, &orderRepository, 1);
-    booking.set_information_for_booking_taxi();
-
-    // ui.display_terminal();
+    // Display the menu
+    ui.display_terminal();
 
     return 0;
+
+    //cout << "[INFO] The programm started well" << endl;
+    //DatabaseConnection dbConn("example.db");
+    //SQLiteUserRepository userRepository(&dbConn);
+    //SQLiteOrderRepository orderRepository(&dbConn);
+
+    //CONSOLE_UI ui;
+
+    //// Creation user to db ---
+    //// Passenger passenger = Passenger("David Doen", 22, "john@example.com", "password123");
+    //// userRepository.createUser(passenger);
+    //
+    //// Creation order to db ---
+    //Booking booking("Start Address", "Destination Address", 0.0, &orderRepository, 1);
+    //booking.set_information_for_booking_taxi();
+
+    //// ui.display_terminal();
+
+    //return 0;
 }
 
 ////

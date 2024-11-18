@@ -3,6 +3,7 @@
 
 #include "../domain/domain.h"
 #include "../infrastructure/repository/order_repository.h"
+#include "../infrastructure/db_provider.h"
 
 class Booking {
 private:
@@ -16,6 +17,11 @@ public:
     Booking(const string& from, const string& to, double cost, SQLiteOrderRepository* repo, int userId)
         : fromAddress(from), toAddress(to), cost(cost), orderRepo(repo), user_id(userId) {}
 
+    void set_query_db(DatabaseProvider* provider)
+    {
+        this->orderRepo = provider->setOrderRepository();
+    }
+
     void bookTaxi(const string& from, const string& to) {
         double fare = calculateFare(from, to);
         cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
@@ -23,7 +29,7 @@ public:
     }
 
     double calculateFare(const string& from, const string& to) {
-        this->cost = 10; // TEMPORALY
+        this->cost = 10; // TEMPORALLY
         cout << "Price will be " << this->cost << endl;
         return this->cost;
     }
@@ -39,7 +45,6 @@ public:
 
         this->fromAddress = from;
         this->toAddress = to;
-        displayBookingInfo();
         bookTaxi(from, to);
     }
 

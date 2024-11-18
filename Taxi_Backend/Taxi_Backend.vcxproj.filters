@@ -63,7 +63,7 @@
     <ClInclude Include="domain\enteties\passenger.h">
       <Filter>domain\enteties</Filter>
     </ClInclude>
-    <ClInclude Include="use_cases\obs.h">
+    <ClInclude Include="use_cases\dto.h">
       <Filter>use_cases</Filter>
     </ClInclude>
     <ClInclude Include="presentation\user_interface.h">
@@ -81,31 +81,22 @@
     <ClInclude Include="infrastructure\model\order_model\order_model.h">
       <Filter>infrastructure\model\order_model</Filter>
     </ClInclude>
-    <ClInclude Include="infrastructure\repository\order_repository\order_repos.h">
-      <Filter>infrastructure\repository\order_repository</Filter>
-    </ClInclude>
-    <ClInclude Include="infrastructure\repository\user_repository\user_repos.h">
-      <Filter>infrastructure\repository\user_repository</Filter>
-    </ClInclude>
     <ClInclude Include="presentation\repos\interface_order_repository.h">
       <Filter>presentation\repos</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\repository\db_user_repository.h">
       <Filter>infrastructure\repository</Filter>
     </ClInclude>
+    <ClInclude Include="infrastructure\db_provider.h" />
+    <ClInclude Include="infrastructure\repository\order_repository.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main\main.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="infrastructure\repository\user_repository\user_repos.cpp">
-      <Filter>infrastructure\repository\user_repository</Filter>
-    </ClCompile>
-    <ClCompile Include="infrastructure\repository\order_repository\order_repos.cpp">
-      <Filter>infrastructure\repository\order_repository</Filter>
-    </ClCompile>
     <ClCompile Include="infrastructure\repository\db_user_repository.cpp">
       <Filter>infrastructure\repository</Filter>
     </ClCompile>
+    <ClCompile Include="infrastructure\repository\order_repository.cpp" />
   </ItemGroup>
 </Project>

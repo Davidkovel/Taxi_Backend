@@ -28,6 +28,7 @@
     <ClInclude Include="infrastructure\model\order_model\order_model.h" />
     <ClInclude Include="infrastructure\repository\db_user_repository.h" />
     <ClInclude Include="infrastructure\repository\order_repository.h" />
+    <ClInclude Include="lib\exceptions\db_exception.h" />
     <ClInclude Include="lib\lib.h" />
     <ClInclude Include="presentation\console_ui.h" />
     <ClInclude Include="presentation\repos\interface_order_repository.h" />

@@ -4,9 +4,7 @@
 
 #include "../database/db_connection.h"
 #include "../../presentation/repos/interface_order_repository.h"
-
-// #include "../../application/interfaces/IUserRepository.h"
-// #include "../database/DatabaseConnection.h"
+#include "../../lib/exceptions/db_exception.h"
 
 class SQLiteOrderRepository : public IOrderRepository {
 public:

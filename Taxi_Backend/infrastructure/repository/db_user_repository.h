@@ -1,10 +1,10 @@
 // SQLiteUserRepository.h
 #ifndef SQLITE_USER_REPOSITORY_H
 #define SQLITE_USER_REPOSITORY_H
+
 #include "../database/db_connection.h"
 #include "../../presentation/repos/interface_user_repository.h"
-// #include "../../application/interfaces/IUserRepository.h"
-// #include "../database/DatabaseConnection.h"
+#include "../../lib/exceptions/db_exception.h"
 
 class SQLiteUserRepository : public IUserRepository {
 public:
@@ -14,4 +14,5 @@ public:
 private:
     DatabaseConnection* dbConn;
 };
+
 #endif // SQLITE_USER_REPOSITORY_H

@@ -24,28 +24,16 @@ public:
 			booking.set_information_for_booking_taxi();
 			booking.displayBookingInfo();
 			cout << "The order is succesfuly booked. Wait for your taxi" << endl;
+			break;
 		case 2:
 			save_booking.set_query_db(dbProvider);
 			save_booking.save_to_csv(0, "user_orders.csv");
+			break;
 
 		default:
+			cout << "Error choice. Try again!" << endl;
 			break;
 		}
-
-
-        //switch (choice) {
-//case 1:
-//    bookTaxi(); // запускаем функционал бронирования такси
-//    break;
-//case 2:
-//    loginUser(); // можно добавить логику входа
-//    break;
-//case 3:
-//    registerUser(); // можно добавить логику регистрации
-//    break;
-//default:
-//    cout << "Invalid choice" << endl;
-//}
 	}
 };
 

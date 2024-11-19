@@ -1,6 +1,5 @@
 #include "../domain/domain.h"
 #include "../presentation/console_ui.h"
-#include "../use_cases/dto.h"
 
 // db connection
 #include "../infrastructure/database/db_connection.h"

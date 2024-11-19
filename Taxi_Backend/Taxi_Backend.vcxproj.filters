@@ -37,14 +37,14 @@
     <Filter Include="infrastructure\model\order_model">
       <UniqueIdentifier>{64fa834f-0a39-4482-9cb9-620dd09a40e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="infrastructure\repository\order_repository">
-      <UniqueIdentifier>{f2cc226f-d9bd-4d02-bf97-28db619e8560}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="infrastructure\repository\user_repository">
-      <UniqueIdentifier>{bc4d1056-e012-4002-be04-f4c44299be77}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lib\exceptions">
       <UniqueIdentifier>{3ab671b9-7ea9-4fce-9d11-0eedcdfd9169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository\order_repository">
+      <UniqueIdentifier>{43b1ab8b-89c9-4231-8289-c650eccd89e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository\user_repository">
+      <UniqueIdentifier>{29800156-059c-47ea-9c10-0d22fbbe0930}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,31 +87,31 @@
     <ClInclude Include="presentation\repos\interface_order_repository.h">
       <Filter>presentation\repos</Filter>
     </ClInclude>
-    <ClInclude Include="infrastructure\repository\db_user_repository.h">
-      <Filter>infrastructure\repository</Filter>
-    </ClInclude>
     <ClInclude Include="lib\exceptions\exception.h">
       <Filter>lib\exceptions</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\db_provider.h">
       <Filter>infrastructure</Filter>
     </ClInclude>
-    <ClInclude Include="infrastructure\repository\order_repository.h">
-      <Filter>infrastructure\repository</Filter>
-    </ClInclude>
     <ClInclude Include="use_cases\save_user_booking_orders.h">
       <Filter>use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\repository\order_repository\order_repository.h">
+      <Filter>infrastructure\repository\order_repository</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\repository\user_repository\user_repository.h">
+      <Filter>infrastructure\repository\user_repository</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main\main.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="infrastructure\repository\db_user_repository.cpp">
-      <Filter>infrastructure\repository</Filter>
+    <ClCompile Include="infrastructure\repository\order_repository\order_repository.cpp">
+      <Filter>infrastructure\repository\order_repository</Filter>
     </ClCompile>
-    <ClCompile Include="infrastructure\repository\order_repository.cpp">
-      <Filter>infrastructure\repository</Filter>
+    <ClCompile Include="infrastructure\repository\user_repository\user_repository.cpp">
+      <Filter>infrastructure\repository\user_repository</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

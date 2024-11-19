@@ -9,10 +9,7 @@ class CONSOLE_UI : virtual public IUser {
 private:
     DTO dto;
 public:
-    CONSOLE_UI()
-    {
-       // this->obs_obj = obj;
-    }
+    CONSOLE_UI() = default;
 
     CONSOLE_UI(DatabaseProvider* provider) : dto(provider) {}
 

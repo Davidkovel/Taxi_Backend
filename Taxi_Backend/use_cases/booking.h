@@ -2,7 +2,7 @@
 #define BOOKING_H
 
 #include "../domain/domain.h"
-#include "../infrastructure/repository/order_repository.h"
+#include "../infrastructure/repository/order_repository/order_repository.h"
 #include "../infrastructure/db_provider.h"
 
 class Booking {
@@ -25,6 +25,7 @@ public:
     void bookTaxi(const string& from, const string& to) {
         double fare = calculateFare(from, to);
         cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
+        
         orderRepo->add_order(user_id, from, to, "Completed", fare);
     }
 

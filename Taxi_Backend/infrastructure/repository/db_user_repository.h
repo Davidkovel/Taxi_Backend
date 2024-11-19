@@ -4,7 +4,7 @@
 
 #include "../database/db_connection.h"
 #include "../../presentation/repos/interface_user_repository.h"
-#include "../../lib/exceptions/db_exception.h"
+#include "../../lib/exceptions/exception.h"
 
 class SQLiteUserRepository : public IUserRepository {
 public:

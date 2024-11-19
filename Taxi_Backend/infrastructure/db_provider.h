@@ -35,6 +35,10 @@ public:
         return &orderRepository;
     }
 
+    SQLiteUserRepository* setUserRepository() {
+        return &userRepository;
+    }
+
     SQLiteOrderRepository* setOrderRepository() {
         return &orderRepository;
     }

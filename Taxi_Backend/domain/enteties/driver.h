@@ -12,13 +12,6 @@ public:
     Driver(const string& name, int age, const string& email, const string& password, bool busy = false)
         : User(name, age, email), password(password), busy(busy) {}
 
-    string getRole() const override {
-        return "Driver";
-    }
-
-    bool authenticate(const string& inputPassword) override {
-        return password == inputPassword;
-    }
 
     bool isBusy() const {
         return busy;

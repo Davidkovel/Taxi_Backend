@@ -13,7 +13,6 @@ public:
     User(string name, int age, string email) : name(name), age(age), email(email) {}
 
     virtual string getRole() const = 0;
-    virtual bool authenticate(const string& password) = 0;
     virtual ~User() = default;
 };
 
@@ -29,10 +28,6 @@ public:
 
     string getRole() const override {
         return "Passenger";
-    }
-
-    bool authenticate(const string& inputPassword) override {
-        return password == inputPassword;
     }
 };
 

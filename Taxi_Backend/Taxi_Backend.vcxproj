@@ -23,18 +23,25 @@
     <ClInclude Include="domain\enteties\driver.h" />
     <ClInclude Include="domain\enteties\passenger.h" />
     <ClInclude Include="domain\enteties\user.h" />
+    <ClInclude Include="infrastructure\api_provider.h" />
     <ClInclude Include="infrastructure\database\db_connection.h" />
     <ClInclude Include="infrastructure\db_provider.h" />
     <ClInclude Include="infrastructure\model\order_model\order_model.h" />
+    <ClInclude Include="infrastructure\network\api_client.h" />
+    <ClInclude Include="infrastructure\network\api_client_impl.h" />
+    <ClInclude Include="infrastructure\network\serializer.h" />
     <ClInclude Include="infrastructure\repository\order_repository\order_repository.h" />
     <ClInclude Include="infrastructure\repository\user_repository\user_repository.h" />
+    <ClInclude Include="lib\config.h" />
     <ClInclude Include="lib\exceptions\exception.h" />
     <ClInclude Include="lib\lib.h" />
     <ClInclude Include="presentation\console_ui.h" />
+    <ClInclude Include="presentation\network\interface_api.h" />
     <ClInclude Include="presentation\repos\interface_order_repository.h" />
     <ClInclude Include="presentation\repos\interface_user_repository.h" />
     <ClInclude Include="presentation\user_interface.h" />
     <ClInclude Include="use_cases\booking.h" />
+    <ClInclude Include="use_cases\calculate_distance.h" />
     <ClInclude Include="use_cases\dto.h" />
     <ClInclude Include="use_cases\save_user_booking_orders.h" />
   </ItemGroup>

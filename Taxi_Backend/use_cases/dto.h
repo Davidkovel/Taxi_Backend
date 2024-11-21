@@ -4,6 +4,7 @@
 #include "booking.h"
 #include "save_user_booking_orders.h"
 #include "../infrastructure/db_provider.h"
+#include "../infrastructure/network/api_client_impl.h"
 
 class DTO
 {
@@ -11,6 +12,7 @@ private:
 	Booking booking;
 	SaveBookingOrders save_booking;
 	DatabaseProvider* dbProvider;
+//	APIClientImpl* api_client;
 public:
 	DTO() = default;
 	DTO(DatabaseProvider* provider) : dbProvider(provider) {}
@@ -21,6 +23,7 @@ public:
 		{
 		case 1:
 			booking.set_query_db(dbProvider);
+//			booking.set_initialize_calculation(api_client);
 			booking.set_information_for_booking_taxi();
 			booking.displayBookingInfo();
 			cout << "The order is succesfuly booked. Wait for your taxi" << endl;

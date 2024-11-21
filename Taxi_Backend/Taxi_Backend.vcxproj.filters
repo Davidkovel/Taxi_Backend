@@ -46,6 +46,12 @@
     <Filter Include="infrastructure\repository\user_repository">
       <UniqueIdentifier>{29800156-059c-47ea-9c10-0d22fbbe0930}</UniqueIdentifier>
     </Filter>
+    <Filter Include="infrastructure\network">
+      <UniqueIdentifier>{2ebb41a1-2eef-4989-9d4d-bc068554bcb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="presentation\network">
+      <UniqueIdentifier>{9b85bf1b-df68-4ddb-935b-a2bcfbc8d44b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\lib.h">
@@ -53,9 +59,6 @@
     </ClInclude>
     <ClInclude Include="use_cases\booking.h">
       <Filter>use_cases</Filter>
-    </ClInclude>
-    <ClInclude Include="domain\enteties\user.h">
-      <Filter>domain\enteties</Filter>
     </ClInclude>
     <ClInclude Include="domain\domain.h">
       <Filter>domain</Filter>
@@ -101,6 +104,30 @@
     </ClInclude>
     <ClInclude Include="infrastructure\repository\user_repository\user_repository.h">
       <Filter>infrastructure\repository\user_repository</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\user.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\network\api_client.h">
+      <Filter>infrastructure\network</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\network\api_client_impl.h">
+      <Filter>infrastructure\network</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\network\serializer.h">
+      <Filter>infrastructure\network</Filter>
+    </ClInclude>
+    <ClInclude Include="use_cases\calculate_distance.h">
+      <Filter>use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\api_provider.h">
+      <Filter>infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\config.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\network\interface_api.h">
+      <Filter>presentation\network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

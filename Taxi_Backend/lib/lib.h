@@ -5,6 +5,7 @@
 #include <fstream>
 #include <tuple>
 #include <stdexcept>
+#include <exception>
 #include <iomanip>
 #include <sstream>
 #include <sqlite3.h>
@@ -15,9 +16,10 @@
 using namespace std;
 
 namespace exceptions {
-    class ProcessResult;
+    class BaseException;
     class DBException;
     class CSVFileException;
+    class ProcessException;
 }
 
 using OrderMap = map<int, tuple<string, string, string, double>>;

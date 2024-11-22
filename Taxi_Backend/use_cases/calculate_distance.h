@@ -21,10 +21,10 @@ public:
 
             return result;
         }
-        catch (const exception& e) {
-            cerr << "Error: " << e.what() << "\n";
-            throw;
+        catch (const exception& ex) {
+            throw exceptions::ProcessException("Error during distance calculation " + string(ex.what()));
         }
+
     }
 };
 

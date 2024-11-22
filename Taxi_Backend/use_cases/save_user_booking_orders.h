@@ -22,7 +22,7 @@ public:
 
         ofstream file(file_path);
         if (!file.is_open()) {
-            throw exceptions::CSVFileException("Error opening file for writing: ", file_path);
+            throw exceptions::CSVFileException("Error opening file for writing:" + file_path);
             return;
         }
 

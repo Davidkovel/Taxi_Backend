@@ -1,5 +1,5 @@
 #include "../domain/domain.h"
-#include "../presentation/console_ui.h"
+#include "../presentation/auth_console_ui.h"
 
 // db connection
 #include "../infrastructure/database/db_connection.h"
@@ -10,9 +10,8 @@ int main()
     cout << "[INFO] The program started well" << endl;
     string db_path = "example.db";
     DatabaseProvider dbProvider(db_path);
-    CONSOLE_UI ui(&dbProvider);
-
-    ui.display_terminal();
+    AuthConsole auth_console(dbProvider);
+    auth_console.displayTerminal();
 
     return 0;
 }

@@ -27,11 +27,6 @@ public:
         this->orderRepo = provider->setOrderRepository();
     }
 
-    //void set_initialize_calculation(APIClientImpl* api_client)
-    //{
-    //    this->calculateDistance = api_client->performRequest();
-    //}
-
     void bookTaxi(string& from, string& to) {
         try {
             string distance, duration;
@@ -52,8 +47,7 @@ public:
     }
 
     double calculateFare(double distance) {
-        // Пример расчёта стоимости на основе расстояния
-        this->cost = distance * 0.5; // Стоимость за 1 км
+        this->cost = distance * 0.5;
         cout << "Calculated fare: " << this->cost << " USD." << endl;
         return this->cost;
     }

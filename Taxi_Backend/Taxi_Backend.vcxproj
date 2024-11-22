@@ -32,14 +32,17 @@
     <ClInclude Include="infrastructure\network\serializer.h" />
     <ClInclude Include="infrastructure\repository\order_repository\order_repository.h" />
     <ClInclude Include="infrastructure\repository\user_repository\user_repository.h" />
+    <ClInclude Include="infrastructure\security\hash_util.h" />
     <ClInclude Include="lib\config.h" />
     <ClInclude Include="lib\exceptions\exception.h" />
     <ClInclude Include="lib\lib.h" />
+    <ClInclude Include="presentation\auth_console_ui.h" />
     <ClInclude Include="presentation\console_ui.h" />
     <ClInclude Include="presentation\network\interface_api.h" />
     <ClInclude Include="presentation\repos\interface_order_repository.h" />
     <ClInclude Include="presentation\repos\interface_user_repository.h" />
     <ClInclude Include="presentation\user_interface.h" />
+    <ClInclude Include="use_cases\auth.h" />
     <ClInclude Include="use_cases\booking.h" />
     <ClInclude Include="use_cases\calculate_distance.h" />
     <ClInclude Include="use_cases\dto.h" />

@@ -5,9 +5,12 @@
 #include <fstream>
 #include <tuple>
 #include <stdexcept>
+#include <iomanip>
+#include <sstream>
 #include <sqlite3.h>
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
+#include <openssl/sha.h>
 
 using namespace std;
 

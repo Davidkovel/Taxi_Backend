@@ -8,6 +8,7 @@ class IUserRepository {
 public:
     virtual void createUser(const User& user) = 0;
     virtual User* findUserByEmail(const string& email) = 0;
+    virtual bool userExists(const string& email) = 0;
     virtual ~IUserRepository() = default;
 };
 

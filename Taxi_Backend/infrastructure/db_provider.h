@@ -19,20 +19,8 @@ public:
         userRepository(&dbConn),
         orderRepository(&dbConn) {}
 
-    // THESE 2 METHODS ARE TEMPORALLY
-    SQLiteUserRepository* createUserRepository(const Passenger& passenger) {
-        userRepository.createUser(passenger);
-        return &userRepository;
-    }
-
-    // Overload to accept another concrete class
-    SQLiteUserRepository* createUserRepository(const Driver& driver) {
-        userRepository.createUser(driver);
-        return &userRepository;
-    }
-
-    SQLiteUserRepository* setUserRepository() {
-        return &userRepository;
+    SQLiteUserRepository& setUserRepository() {
+        return userRepository;
     }
 
     SQLiteOrderRepository* setOrderRepository() {

@@ -11,6 +11,7 @@ public:
     SQLiteUserRepository(DatabaseConnection* dbConn);
     void createUser(const User& user) override;
     User* findUserByEmail(const string& email) override;
+    bool userExists(const string& email) override;
 private:
     DatabaseConnection* dbConn;
 };

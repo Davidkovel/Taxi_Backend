@@ -13,7 +13,7 @@ public:
 
     CONSOLE_UI(DatabaseProvider* provider) : dto(provider) {}
 
-    void display_terminal() override {
+    void display_main_menu() override {
         cout << "Choose an option:" << endl;
         cout << "1. Book a taxi" << endl;
         cout << "2. Show your booking orders (.csv format)" << endl;

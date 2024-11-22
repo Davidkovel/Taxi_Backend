@@ -6,7 +6,7 @@
 class IUser {
 public:
 
-    virtual void display_terminal() = 0;
+    virtual void display_main_menu() = 0;
 };
 
 #endif // USER_INTERFACE_H

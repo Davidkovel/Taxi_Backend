@@ -4,26 +4,40 @@
 SQLiteOrderRepository::SQLiteOrderRepository(DatabaseConnection* dbConn) : dbConn(dbConn) {}
 
 void SQLiteOrderRepository::add_order(int user_id, const string& from_address, const string& to_address, const string& status, double price) {
-    string sql = "INSERT INTO orders (user_id, from_adress, to_adress, status, price) VALUES (?, ?, ?, ?, ?);";
-    sqlite3_stmt* stmt;
+    try {
+        // Start Transaction
+        if (sqlite3_exec(dbConn->getConnection(), "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to begin transaction");
+        }
 
-    if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
-        throw exceptions::DBException("Failed to prepare statement: " + string(sqlite3_errmsg(dbConn->getConnection())));
-        return;
+        string sql = "INSERT INTO orders (user_id, from_adress, to_adress, status, price) VALUES (?, ?, ?, ?, ?);";
+        sqlite3_stmt* stmt;
+        if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to prepare statement");
+        }
+        sqlite3_bind_int(stmt, 1, user_id);
+        sqlite3_bind_text(stmt, 2, from_address.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 3, to_address.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 4, status.c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_double(stmt, 5, price);
+
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            throw runtime_error("Failed to insert order");
+        }
+        sqlite3_finalize(stmt);
+
+        // Commit Transaction
+        if (sqlite3_exec(dbConn->getConnection(), "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to commit transaction");
+        }
     }
-
-    sqlite3_bind_int(stmt, 1, user_id);
-    sqlite3_bind_text(stmt, 2, from_address.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, to_address.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 4, status.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_double(stmt, 5, price);
-
-    if (sqlite3_step(stmt) != SQLITE_DONE) {
-        throw exceptions::DBException("Error adding order to database: " + string(sqlite3_errmsg(dbConn->getConnection())));
+    catch (const exception& ex) {
+        // Rollback Transaciton
+        sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
+        throw exceptions::DBException("Error deducting user balance", ex.what());
     }
-
-    sqlite3_finalize(stmt);
 }
+
 
 OrderMap SQLiteOrderRepository::saveUserOrders(int user_id) {
     OrderMap ordersMap;

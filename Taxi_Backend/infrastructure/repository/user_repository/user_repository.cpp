@@ -99,34 +99,44 @@ User* SQLiteUserRepository::findUserById(int user_id) {
     }
 }
 
-void SQLiteUserRepository::updateUserBalance(const string& email, double amount)
-{
+void SQLiteUserRepository::updateUserBalance(const string& email, double new_balance) {
     try {
-        string sql = "UPDATE users SET balance = ? WHERE email = ?;";
-        sqlite3_stmt* stmt;
-
-        if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
-            throw exceptions::DBException("Failed to prepare SQL query", sqlite3_errmsg(dbConn->getConnection()));
+        if (sqlite3_exec(dbConn->getConnection(), "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to begin transaction");
         }
 
-        sqlite3_bind_double(stmt, 1, amount);
+        string sql = "UPDATE users SET balance = ? WHERE email = ?;";
+        sqlite3_stmt* stmt;
+        if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to prepare statement");
+        }
+        sqlite3_bind_double(stmt, 1, new_balance);
         sqlite3_bind_text(stmt, 2, email.c_str(), -1, SQLITE_STATIC);
 
         if (sqlite3_step(stmt) != SQLITE_DONE) {
-            sqlite3_finalize(stmt);
-            throw exceptions::DBException("Failed to execute SQL query", sqlite3_errmsg(dbConn->getConnection()));
+            throw runtime_error("Failed to update balance");
         }
-
         sqlite3_finalize(stmt);
+
+        if (sqlite3_exec(dbConn->getConnection(), "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to commit transaction");
+        }
     }
-    catch (const exception& e) {
-        throw exceptions::DBException("Error updating user balance", e.what());
+    catch (const exception& ex) {
+        sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
+        throw exceptions::DBException("Failed to update user balance", ex.what());
     }
 }
+
 
 bool SQLiteUserRepository::deductUserBalance(int user_id, double amount)
 {
     try {
+        // Start Transaction
+        if (sqlite3_exec(dbConn->getConnection(), "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw exceptions::DBException("Failed to begin transaction", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
         string getBalanceSql = "SELECT balance FROM users WHERE id = ?;";
         sqlite3_stmt* getBalanceStmt;
 
@@ -169,8 +179,17 @@ bool SQLiteUserRepository::deductUserBalance(int user_id, double amount)
         }
 
         sqlite3_finalize(updateStmt);
+
+        // Commit Transaction
+        if (sqlite3_exec(dbConn->getConnection(), "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw exceptions::DBException("Failed to commit transaction", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
+        return true;
     }
     catch (const exception& e) {
+        // Rollback Transaction
+        sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
         throw exceptions::DBException("Error deducting user balance", e.what());
     }
 }

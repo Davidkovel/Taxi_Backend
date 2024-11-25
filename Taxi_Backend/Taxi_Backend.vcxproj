@@ -47,6 +47,7 @@
     <ClInclude Include="use_cases\calculate_distance.h" />
     <ClInclude Include="use_cases\dto.h" />
     <ClInclude Include="use_cases\save_user_booking_orders.h" />
+    <ClInclude Include="use_cases\user_balance.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="infrastructure\repository\order_repository\order_repository.cpp" />

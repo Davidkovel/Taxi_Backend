@@ -12,6 +12,9 @@ public:
     void createUser(const User& user) override;
     User* findUserByEmail(const string& email) override;
     bool userExists(const string& email) override;
+    User* findUserById(int user_id) override;
+    void updateUserBalance(const string& email, double amount) override;
+    bool deductUserBalance(int user_id, double amount) override;
 private:
     DatabaseConnection* dbConn;
 };

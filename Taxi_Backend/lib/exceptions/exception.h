@@ -7,7 +7,7 @@
 
 namespace exceptions {
 
-    class BaseException : public std::exception {
+    class BaseException : public exception {
     protected:
         string message;
         string cause;

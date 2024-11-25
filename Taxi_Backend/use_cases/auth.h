@@ -21,10 +21,10 @@ public:
         User* newUser = nullptr;
 
         if (role == "Passenger") {
-            newUser = new Passenger(username, age, email, hashedPassword, role);
+            newUser = new Passenger(username, age, email, hashedPassword, 0, role);
         }
         else if (role == "Driver") {
-            newUser = new Driver(username, age, email, hashedPassword, role);
+            newUser = new Driver(username, age, email, hashedPassword, 0, role);
         }
         else {
             cout << "Invalid role specified!" << endl;
@@ -36,8 +36,8 @@ public:
         return true;
     }
 
-    bool loginUser(const string& username, const string& password) {
-        User* user = userRepo.findUserByEmail(username);
+    bool loginUser(const string& email, const string& password) {
+        User* user = userRepo.findUserByEmail(email);
         if (user == nullptr) {
             cout << "User not found!" << endl;
             return false;

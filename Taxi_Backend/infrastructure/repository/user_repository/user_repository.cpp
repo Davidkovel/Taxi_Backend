@@ -23,7 +23,7 @@ void SQLiteUserRepository::createUser(const User& user) {
 }
 
 User* SQLiteUserRepository::findUserByEmail(const string& email) {
-    string sql = "SELECT name, age, email, password, role FROM users WHERE email = ?;";
+    string sql = "SELECT name, age, email, password, balance, role FROM users WHERE email = ?;";
     sqlite3_stmt* stmt;
 
     sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr);
@@ -34,15 +34,16 @@ User* SQLiteUserRepository::findUserByEmail(const string& email) {
         int age = sqlite3_column_int(stmt, 1);
         string email = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
         string password = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
-        string role = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
+        double balance = sqlite3_column_double(stmt, 4);
+        string role = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
 
         sqlite3_finalize(stmt);
 
         if (role == "Passenger") {
-            return new Passenger(name, age, email, password, role);
+            return new Passenger(name, age, email, password, balance, role);
         }
         else if (role == "Driver") {
-            return new Driver(name, age, email, password, role);
+            return new Driver(name, age, email, password, balance, role);
         }
     }
 
@@ -65,4 +66,111 @@ bool SQLiteUserRepository::userExists(const string& email)
 
     sqlite3_finalize(stmt);
     return exists;
+}
+
+User* SQLiteUserRepository::findUserById(int user_id) {
+    try {
+        string sql = "SELECT name, age, email, password, balance, role FROM users WHERE id = ?;";
+        sqlite3_stmt* stmt;
+
+        if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+            throw exceptions::DBException("Failed to prepare SQL query", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
+        sqlite3_bind_int(stmt, 1, user_id);
+
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            string name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+            int age = sqlite3_column_int(stmt, 1);
+            string email = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+            string password = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+            double balance = sqlite3_column_double(stmt, 4);
+            string role = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
+
+            sqlite3_finalize(stmt);
+            return new Passenger(name, age, email, password, balance, role);
+        }
+
+        sqlite3_finalize(stmt);
+        return nullptr; // User has not found
+    }
+    catch (const exception& e) {
+        throw exceptions::DBException("Error fetching user by ID", e.what());
+    }
+}
+
+void SQLiteUserRepository::updateUserBalance(const string& email, double amount)
+{
+    try {
+        string sql = "UPDATE users SET balance = ? WHERE email = ?;";
+        sqlite3_stmt* stmt;
+
+        if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+            throw exceptions::DBException("Failed to prepare SQL query", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
+        sqlite3_bind_double(stmt, 1, amount);
+        sqlite3_bind_text(stmt, 2, email.c_str(), -1, SQLITE_STATIC);
+
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            sqlite3_finalize(stmt);
+            throw exceptions::DBException("Failed to execute SQL query", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
+        sqlite3_finalize(stmt);
+    }
+    catch (const exception& e) {
+        throw exceptions::DBException("Error updating user balance", e.what());
+    }
+}
+
+bool SQLiteUserRepository::deductUserBalance(int user_id, double amount)
+{
+    try {
+        string getBalanceSql = "SELECT balance FROM users WHERE id = ?;";
+        sqlite3_stmt* getBalanceStmt;
+
+        if (sqlite3_prepare_v2(dbConn->getConnection(), getBalanceSql.c_str(), -1, &getBalanceStmt, nullptr) != SQLITE_OK) {
+            throw exceptions::DBException("Failed to prepare SQL query to get balance", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
+        sqlite3_bind_int(getBalanceStmt, 1, user_id);
+
+        double currentBalance = 0.0;
+        if (sqlite3_step(getBalanceStmt) == SQLITE_ROW) {
+            currentBalance = sqlite3_column_double(getBalanceStmt, 0);
+        }
+        else {
+            sqlite3_finalize(getBalanceStmt);
+            throw exceptions::DBException("User not found with the given ID", to_string(user_id).c_str());
+        }
+
+        sqlite3_finalize(getBalanceStmt);
+
+        if (currentBalance < amount) {
+            throw exceptions::DBException("Insufficient balance", "Attempted to deduct more than available");
+        }
+
+        double newBalance = currentBalance - amount;
+
+        string updateBalanceSql = "UPDATE users SET balance = ? WHERE id = ?;";
+        sqlite3_stmt* updateStmt;
+
+        if (sqlite3_prepare_v2(dbConn->getConnection(), updateBalanceSql.c_str(), -1, &updateStmt, nullptr) != SQLITE_OK) {
+            throw exceptions::DBException("Failed to prepare SQL query to update balance", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
+        sqlite3_bind_double(updateStmt, 1, newBalance);
+        sqlite3_bind_int(updateStmt, 2, user_id);
+
+        if (sqlite3_step(updateStmt) != SQLITE_DONE) {
+            sqlite3_finalize(updateStmt);
+            throw exceptions::DBException("Failed to execute SQL query to update balance", sqlite3_errmsg(dbConn->getConnection()));
+        }
+
+        sqlite3_finalize(updateStmt);
+    }
+    catch (const exception& e) {
+        throw exceptions::DBException("Error deducting user balance", e.what());
+    }
 }

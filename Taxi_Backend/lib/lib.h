@@ -8,6 +8,7 @@
 #include <exception>
 #include <iomanip>
 #include <sstream>
+#include <optional>
 #include <sqlite3.h>
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>

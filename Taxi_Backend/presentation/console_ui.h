@@ -14,16 +14,26 @@ public:
     CONSOLE_UI(DatabaseProvider* provider) : dto(provider) {}
 
     void display_main_menu() override {
-        cout << "Choose an option:" << endl;
-        cout << "1. Book a taxi" << endl;
-        cout << "2. Show your booking orders (.csv format)" << endl;
-        cout << "Your option: ";
+        while (true) {
+            cout << "Choose an option:" << endl;
+            cout << "1. Book a taxi" << endl;
+            cout << "2. Deposit balance" << endl;
+            cout << "3. Show your booking orders (.csv format)" << endl;
+            cout << "4. Quit" << endl;
+            cout << "Your option: ";
 
-        int choice;
-        cin >> choice;
+            int choice;
+            cin >> choice;
 
-        dto.call_function(choice);
+            if (choice == 4) {
+                cout << "Exiting to the login menu..." << endl;
+                break;
+            }
+
+            dto.call_function(choice);
+        }
     }
+
 };
 
 #endif // CONSOLE_UI_H

@@ -20,7 +20,7 @@ private:
 
 public:
     AuthConsole(DatabaseProvider& dbProvider)
-        : dbProvider(dbProvider), authUseCase(dbProvider.setUserRepository()) {}
+        : dbProvider(dbProvider), authUseCase(dbProvider.setUserRepositoryForConsole()) {}
 
     void displayTerminal() {
         while (true) {
@@ -37,7 +37,7 @@ public:
 
             if (choice == 1) { // Login
                 UserInfo user = setInformationLogin();
-                if (authUseCase.loginUser(user.username, user.password)) {
+                if (authUseCase.loginUser(user.email, user.password)) {
                     cout << "Login successful!" << endl;
 
                     CONSOLE_UI consoleUi(&dbProvider);
@@ -61,8 +61,8 @@ public:
 
     UserInfo setInformationLogin() {
         UserInfo user;
-        cout << "Enter username: ";
-        cin >> user.username;
+        cout << "Enter email: ";
+        cin >> user.email;
         cout << "Enter password: ";
         cin >> user.password;
 

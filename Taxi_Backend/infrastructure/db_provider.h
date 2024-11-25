@@ -18,9 +18,14 @@ public:
         : dbConn(path_db),
         userRepository(&dbConn),
         orderRepository(&dbConn) {}
-
-    SQLiteUserRepository& setUserRepository() {
+    
+    // TEMPORALLY METHOD
+    SQLiteUserRepository& setUserRepositoryForConsole() {
         return userRepository;
+    }
+
+    SQLiteUserRepository* setUserRepository() {
+        return &userRepository;
     }
 
     SQLiteOrderRepository* setOrderRepository() {

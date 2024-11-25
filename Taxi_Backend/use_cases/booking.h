@@ -7,6 +7,7 @@
 #include "../infrastructure/db_provider.h"
 #include "../infrastructure/api_provider.h"
 #include "./calculate_distance.h"
+#include "./user_balance.h"
 
 
 class Booking {
@@ -14,17 +15,21 @@ private:
     string fromAddress;
     string toAddress;
     double cost;
-    SQLiteOrderRepository* orderRepo;
     int user_id;
+
+    SQLiteOrderRepository* orderRepo;
+    SQLiteUserRepository* userRepo;
     CalculateDistance* calculateDistance;
+    UserBalance* userBalanceService;
 public:
     Booking() = default;
-    Booking(const string& from, const string& to, double cost, SQLiteOrderRepository* repo, int userId)
-        : fromAddress(from), toAddress(to), cost(cost), orderRepo(repo), user_id(userId) {}
+    Booking(const string& from, const string& to, double cost, int userId, SQLiteOrderRepository* repo)
+        : fromAddress(from), toAddress(to), cost(cost), user_id(userId), orderRepo(repo) {}
 
     void set_query_db(DatabaseProvider* provider)
     {
         this->orderRepo = provider->setOrderRepository();
+        this->userRepo = provider->setUserRepository();
     }
 
     void bookTaxi(string& from, string& to) {
@@ -37,9 +42,11 @@ public:
             double distance_2 = stod(result_from_api.distance);
             double fare = calculateFare(distance_2);
 
-            cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
+            deductFareFromUser(fare);
 
             orderRepo->add_order(user_id, from, to, "Completed", fare);
+
+            cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
         }
         catch (const exception& e) {
             cerr << "Error during booking: " << e.what() << endl;
@@ -52,6 +59,31 @@ public:
         return this->cost;
     }
 
+    void deductFareFromUser(double fare) {
+        try {
+            if (!userRepo) {
+                throw runtime_error("User repository is not initialized");
+            }
+
+            User* user = userRepo->findUserById(3);
+            if (!user) {
+                throw runtime_error("User not found");
+            }
+
+            if (user->getBalance() < fare) {
+                throw runtime_error("Insufficient balance to book the taxi");
+            }
+
+            double newBalance = user->getBalance() - fare;
+            userRepo->updateUserBalance("dd", newBalance);
+
+            cout << "Fare deducted successfully. New balance: " << newBalance << endl;
+        }
+        catch (const exception& e) {
+            cerr << "Error deducting fare: " << e.what() << endl;
+            throw;
+        }
+    }
     void set_information_for_booking_taxi()
     {
         string from, to;

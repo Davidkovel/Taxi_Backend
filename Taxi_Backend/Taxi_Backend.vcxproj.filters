@@ -141,6 +141,9 @@
     <ClInclude Include="infrastructure\security\hash_util.h">
       <Filter>infrastructure\security</Filter>
     </ClInclude>
+    <ClInclude Include="use_cases\user_balance.h">
+      <Filter>use_cases</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main\main.cpp">

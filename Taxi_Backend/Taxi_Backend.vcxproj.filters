@@ -55,6 +55,9 @@
     <Filter Include="infrastructure\security">
       <UniqueIdentifier>{01b7f253-0d46-46d1-b033-47f9982a09c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="adapters">
+      <UniqueIdentifier>{3f03d0e2-6ca8-43c8-8df4-8179073f55c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\lib.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="use_cases\user_balance.h">
       <Filter>use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="adapters\session.h">
+      <Filter>adapters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

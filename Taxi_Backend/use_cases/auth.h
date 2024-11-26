@@ -4,6 +4,7 @@
 #include "../domain/domain.h"
 #include "../infrastructure/repository/user_repository/user_repository.h"
 #include "../infrastructure/security/hash_util.h"
+#include "../adapters/session.h"
 
 class AuthUseCase {
 private:
@@ -21,10 +22,10 @@ public:
         User* newUser = nullptr;
 
         if (role == "Passenger") {
-            newUser = new Passenger(username, age, email, hashedPassword, 0, role);
+            newUser = new Passenger(nullptr,username, age, email, hashedPassword, 0, role);
         }
         else if (role == "Driver") {
-            newUser = new Driver(username, age, email, hashedPassword, 0, role);
+            newUser = new Driver(nullptr, username, age, email, hashedPassword, 0, role);
         }
         else {
             cout << "Invalid role specified!" << endl;
@@ -32,11 +33,13 @@ public:
         }
 
         userRepo.createUser(*newUser);
+        Session::getInstance()->setUser(newUser->getUserId() ? *newUser->getUserId() : -1, newUser->getEmail());
         delete newUser;
         return true;
     }
 
     bool loginUser(const string& email, const string& password) {
+        session->resetSession();
         User* user = userRepo.findUserByEmail(email);
         if (user == nullptr) {
             cout << "User not found!" << endl;
@@ -45,10 +48,13 @@ public:
 
         if (HashUtil::verifyPassword(password, user->getPassword())) {
             cout << "Welcome, " << user->getName() << "!" << endl;
+            Session::getInstance()->setUser(user->getUserId() ? *user->getUserId() : -1, user->getEmail());
+            delete user;
             return true;
         }
         else {
             cout << "Invalid password!" << endl;
+            delete user;
             return false;
         }
     }

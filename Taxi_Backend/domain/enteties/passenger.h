@@ -5,6 +5,7 @@
 
 class User abstract {
 public:
+    int* user_id;
     string name;
     int age;
     string email;
@@ -12,8 +13,9 @@ public:
     double balance;
     string role;
 
-    User(string name, int age, string email, const string& passHash, double balance, const string& role) : name(name), age(age), email(email), passwordHash(passHash), balance(balance), role(role) {}
+    User(int* userId, string name, int age, string email, const string& passHash, double balance, const string& role) : user_id(userId), name(name), age(age), email(email), passwordHash(passHash), balance(balance), role(role) {}
 
+    int* getUserId() const { return user_id; }
     string getName() const { return name; }
     int getAge() const { return age; }
     string getEmail() const { return email; }
@@ -33,7 +35,7 @@ public:
 
 class Passenger : public User {
 public:
-    Passenger(const string& name, int age, const string& email, const string& password, double balance, const string& role) : User(name, age, email, password, balance, role) {}
+    Passenger(int* userId, const string& name, int age, const string& email, const string& password, double balance, const string& role) : User(userId, name, age, email, password, balance, role) {}
 
     string getRole() const override {
         return "Passenger";
@@ -46,8 +48,8 @@ class Driver : public User {
 private:
     bool busy;
 public:
-    Driver(const string& name, int age, const string& email, const string& password, double balance, const string& role, bool busy = false)
-        : User(name, age, email, password, balance, role), busy(busy) {}
+    Driver(int* userId, const string& name, int age, const string& email, const string& password, double balance, const string& role, bool busy = false)
+        : User(userId, name, age, email, password, balance, role), busy(busy) {}
 
     string getRole() const override {
         return "Driver";

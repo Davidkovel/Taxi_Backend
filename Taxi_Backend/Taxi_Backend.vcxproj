@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="adapters\session.h" />
     <ClInclude Include="domain\domain.h" />
     <ClInclude Include="domain\enteties\driver.h" />
     <ClInclude Include="domain\enteties\passenger.h" />

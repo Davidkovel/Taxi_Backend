@@ -6,6 +6,7 @@
 #include "../infrastructure/repository/order_repository/order_repository.h"
 #include "../infrastructure/db_provider.h"
 #include "../infrastructure/api_provider.h"
+#include "../adapters/session.h"
 #include "./calculate_distance.h"
 #include "./user_balance.h"
 
@@ -42,14 +43,18 @@ public:
             double distance_2 = stod(result_from_api.distance);
             double fare = calculateFare(distance_2);
 
-            deductFareFromUser(fare);
+            bool success = deductFareFromUser(fare);
+            if (!success) {
+                cout << "Error! You don't have enough money to pay for the taxi." << endl;
+                return;
+            }
 
-            orderRepo->add_order(user_id, from, to, "Completed", fare);
+            orderRepo->add_order(session->getUserId(), from, to, "Completed", fare);
 
             cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
         }
-        catch (const exception& e) {
-            cerr << "Error during booking: " << e.what() << endl;
+        catch (const exception& ex) {
+            cerr << "Error during booking: " << ex.what() << endl;
         }
     }
 
@@ -59,25 +64,27 @@ public:
         return this->cost;
     }
 
-    void deductFareFromUser(double fare) {
+    bool deductFareFromUser(double fare) {
         try {
             if (!userRepo) {
                 throw runtime_error("User repository is not initialized");
             }
 
-            User* user = userRepo->findUserById(3);
+            User* user = userRepo->findUserById(session->getUserId());
             if (!user) {
                 throw runtime_error("User not found");
             }
 
             if (user->getBalance() < fare) {
                 throw runtime_error("Insufficient balance to book the taxi");
+                return false;
             }
 
             double newBalance = user->getBalance() - fare;
-            userRepo->updateUserBalance("dd", newBalance);
+            userRepo->updateUserBalance(session->getEmail(), newBalance);
 
             cout << "Fare deducted successfully. New balance: " << newBalance << endl;
+            return true;
         }
         catch (const exception& e) {
             cerr << "Error deducting fare: " << e.what() << endl;

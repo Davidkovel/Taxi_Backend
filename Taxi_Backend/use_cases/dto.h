@@ -6,6 +6,7 @@
 #include "user_balance.h"
 #include "../infrastructure/db_provider.h"
 #include "../infrastructure/network/api_client_impl.h"
+#include "../adapters/session.h"
 
 class DTO
 {
@@ -14,6 +15,7 @@ private:
 	SaveBookingOrders save_booking;
 	UserBalance user_balance;
 	DatabaseProvider* dbProvider;
+	Session* session = Session::getInstance();
 public:
 	DTO() = default;
 	DTO(DatabaseProvider* provider) : dbProvider(provider) {}
@@ -27,7 +29,6 @@ public:
 		case 1:
 			booking.set_information_for_booking_taxi();
 			booking.displayBookingInfo();
-			cout << "The order is succesfuly booked. Wait for your taxi" << endl;
 			break;
 		case 2:
 			user_balance.deposit();

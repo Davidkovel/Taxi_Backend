@@ -5,7 +5,6 @@ SQLiteOrderRepository::SQLiteOrderRepository(DatabaseConnection* dbConn) : dbCon
 
 void SQLiteOrderRepository::add_order(int user_id, const string& from_address, const string& to_address, const string& status, double price) {
     try {
-        // Start Transaction
         if (sqlite3_exec(dbConn->getConnection(), "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK) {
             throw runtime_error("Failed to begin transaction");
         }
@@ -26,13 +25,11 @@ void SQLiteOrderRepository::add_order(int user_id, const string& from_address, c
         }
         sqlite3_finalize(stmt);
 
-        // Commit Transaction
         if (sqlite3_exec(dbConn->getConnection(), "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK) {
             throw runtime_error("Failed to commit transaction");
         }
     }
     catch (const exception& ex) {
-        // Rollback Transaciton
         sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
         throw exceptions::DBException("Error deducting user balance", ex.what());
     }

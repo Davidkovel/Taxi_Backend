@@ -19,7 +19,7 @@ public:
             cout << "1. Book a taxi" << endl;
             cout << "2. Deposit balance" << endl;
             cout << "3. Show your booking orders (.csv format)" << endl;
-            cout << "4. Quit" << endl;
+            cout << "4. Logout" << endl;
             cout << "Your option: ";
 
             int choice;

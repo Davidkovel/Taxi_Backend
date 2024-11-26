@@ -4,6 +4,7 @@
 #include "../domain/domain.h"
 #include "../infrastructure/db_provider.h"
 #include "../infrastructure/repository/user_repository/user_repository.h"
+#include "../adapters/session.h"
 
 class UserBalance
 {
@@ -29,14 +30,6 @@ private:
         return user;
     }
 
-    int promptUserId() {
-        int userId;
-        cout << "Enter User ID: ";
-        cin >> userId;
-        cin.ignore();
-        return userId;
-    }
-
     double promptAmount(const string& operation) {
         double amount;
         cout << "Enter amount to " << operation << ": ";
@@ -55,7 +48,7 @@ public:
 
     void deposit() {
         try {
-            int userId = promptUserId();
+            int userId = session->getUserId();
             double amount = promptAmount("deposit");
 
             if (amount <= 0) {
@@ -94,7 +87,7 @@ public:
 
     void withdraw() {
         try {
-            int userId = promptUserId();
+            int userId = session->getUserId();
             double amount = promptAmount("withdraw");
 
             if (amount <= 0) {

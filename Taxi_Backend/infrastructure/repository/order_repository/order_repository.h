@@ -3,7 +3,7 @@
 #define ORDER_REPOS_H
 
 #include "../../database/db_connection.h"
-#include "../../../presentation/repos/interface_order_repository.h"
+#include "../../../application/interfaces/order_repository_interface.h"
 #include "../../../lib/exceptions/exception.h"
 
 class SQLiteOrderRepository : public IOrderRepository {

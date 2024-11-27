@@ -1,12 +1,13 @@
 #ifndef DTO_H
 #define DTO_H
 
+#include "../../infrastructure/db_provider.h"
+#include "../../infrastructure/network/api_client_impl.h"
+#include "../../adapters/session.h"
+
 #include "booking.h"
 #include "save_user_booking_orders.h"
 #include "user_balance.h"
-#include "../infrastructure/db_provider.h"
-#include "../infrastructure/network/api_client_impl.h"
-#include "../adapters/session.h"
 
 class DTO
 {

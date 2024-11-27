@@ -3,9 +3,9 @@
 
 #include "../../lib/lib.h"
 
-class APIClient {
+class IAPIClient {
 public:
-    virtual ~APIClient() = default;
+    virtual ~IAPIClient() = default;
 
     virtual string performRequest(const string& url) = 0;
 };

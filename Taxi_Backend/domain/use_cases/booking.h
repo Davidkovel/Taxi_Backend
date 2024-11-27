@@ -1,15 +1,16 @@
 #ifndef BOOKING_H
 #define BOOKING_H
 
-#include "../domain/domain.h"
-#include "../lib/config.h"
-#include "../lib/logger.h"
-#include "../infrastructure/repository/order_repository/order_repository.h"
-#include "../infrastructure/db_provider.h"
-#include "../infrastructure/api_provider.h"
-#include "../adapters/session.h"
-#include "./calculate_distance.h"
-#include "./user_balance.h"
+#include "../domain.h"
+#include "../../lib/config.h"
+#include "../../lib/logger.h"
+#include "../../infrastructure/repository/order_repository/order_repository.h"
+#include "../../infrastructure/db_provider.h"
+#include "../../infrastructure/api_provider.h"
+#include "../../adapters/session.h"
+
+#include "calculate_distance.h"
+#include "user_balance.h"
 
 class Booking {
 private:
@@ -39,7 +40,7 @@ public:
             string distance, duration;
 
             ResponseData result_from_api = calculateDistance->execute(from, to, apiKey);
-            
+
             duration = result_from_api.duration;
             double distance_2 = stod(result_from_api.distance);
             double fare = calculateFare(distance_2);

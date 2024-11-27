@@ -3,7 +3,7 @@
 #define SQLITE_USER_REPOSITORY_H
 
 #include "../../database/db_connection.h"
-#include "../../../presentation/repos/interface_user_repository.h"
+#include "../../../application/interfaces/user_repository_interface.h"
 #include "../../../lib/exceptions/exception.h"
 
 class SQLiteUserRepository : public IUserRepository {

@@ -1,10 +1,10 @@
-#ifndef AUTH_USE_CASE_H
-#define AUTH_USE_CASE_H
+#ifndef AUTH_SERVICE_USE_CASE_H
+#define AUTH_SERVICE_USE_CASE_H
 
-#include "../domain/domain.h"
-#include "../infrastructure/repository/user_repository/user_repository.h"
-#include "../infrastructure/security/hash_util.h"
-#include "../adapters/session.h"
+#include "../domain.h"
+#include "../../infrastructure/repository/user_repository/user_repository.h"
+#include "../../infrastructure/security/hash_util.h"
+#include "../../adapters/session.h"
 
 class AuthUseCase {
 private:
@@ -22,7 +22,7 @@ public:
         User* newUser = nullptr;
 
         if (role == "Passenger") {
-            newUser = new Passenger(nullptr,username, age, email, hashedPassword, 0, role);
+            newUser = new Passenger(nullptr, username, age, email, hashedPassword, 0, role);
         }
         else if (role == "Driver") {
             newUser = new Driver(nullptr, username, age, email, hashedPassword, 0, role);
@@ -61,4 +61,4 @@ public:
     }
 };
 
-#endif // AUTH_USE_CASE_H
+#endif // AUTH_SERVICE_USE_CASE_H

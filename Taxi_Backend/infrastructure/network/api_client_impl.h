@@ -1,9 +1,9 @@
 #ifndef API_CLIENT_IMPL_H
 #define API_CLIENT_IMPL_H
 
-#include "api_client.h"
+#include "../../application/interfaces/api_client_interface.h"
 
-class APIClientImpl : public APIClient {
+class APIClientImpl : public IAPIClient {
 public:
     APIClientImpl() = default;
     

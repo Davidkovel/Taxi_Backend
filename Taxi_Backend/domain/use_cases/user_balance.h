@@ -1,10 +1,10 @@
 #ifndef USER_BALANCE_H
 #define USER_BALANCE_H
 
-#include "../domain/domain.h"
-#include "../infrastructure/db_provider.h"
-#include "../infrastructure/repository/user_repository/user_repository.h"
-#include "../adapters/session.h"
+#include "../domain.h"
+#include "../../infrastructure/db_provider.h"
+#include "../../infrastructure/repository/user_repository/user_repository.h"
+#include "../../adapters/session.h"
 
 class UserBalance
 {
@@ -41,7 +41,7 @@ private:
     }
 
 public:
-	UserBalance() = default;
+    UserBalance() = default;
 
     void set_query_db(DatabaseProvider* provider)
     {

@@ -20,15 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adapters\session.h" />
+    <ClInclude Include="application\interfaces\api_client_interface.h" />
+    <ClInclude Include="application\interfaces\i_console_ui.h" />
+    <ClInclude Include="application\interfaces\order_repository_interface.h" />
+    <ClInclude Include="application\interfaces\user_repository_interface.h" />
     <ClInclude Include="domain\domain.h" />
     <ClInclude Include="domain\enteties\driver.h" />
     <ClInclude Include="domain\enteties\passenger.h" />
     <ClInclude Include="domain\enteties\user.h" />
+    <ClInclude Include="domain\use_cases\auth_service.h" />
+    <ClInclude Include="domain\use_cases\booking.h" />
+    <ClInclude Include="domain\use_cases\calculate_distance.h" />
+    <ClInclude Include="domain\use_cases\dto.h" />
+    <ClInclude Include="domain\use_cases\save_user_booking_orders.h" />
+    <ClInclude Include="domain\use_cases\user_balance.h" />
     <ClInclude Include="infrastructure\api_provider.h" />
     <ClInclude Include="infrastructure\database\db_connection.h" />
     <ClInclude Include="infrastructure\db_provider.h" />
-    <ClInclude Include="infrastructure\model\order_model\order_model.h" />
-    <ClInclude Include="infrastructure\network\api_client.h" />
     <ClInclude Include="infrastructure\network\api_client_impl.h" />
     <ClInclude Include="infrastructure\network\serializer.h" />
     <ClInclude Include="infrastructure\repository\order_repository\order_repository.h" />
@@ -40,18 +48,9 @@
     <ClInclude Include="lib\logger.h" />
     <ClInclude Include="presentation\auth_console_ui.h" />
     <ClInclude Include="presentation\console_ui.h" />
-    <ClInclude Include="presentation\network\interface_api.h" />
-    <ClInclude Include="presentation\repos\interface_order_repository.h" />
-    <ClInclude Include="presentation\repos\interface_user_repository.h" />
-    <ClInclude Include="presentation\user_interface.h" />
-    <ClInclude Include="use_cases\auth.h" />
-    <ClInclude Include="use_cases\booking.h" />
-    <ClInclude Include="use_cases\calculate_distance.h" />
-    <ClInclude Include="use_cases\dto.h" />
-    <ClInclude Include="use_cases\save_user_booking_orders.h" />
-    <ClInclude Include="use_cases\user_balance.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="application\interfaces\i_auth_console.h" />
     <ClCompile Include="infrastructure\repository\order_repository\order_repository.cpp" />
     <ClCompile Include="infrastructure\repository\user_repository\user_repository.cpp" />
     <ClCompile Include="main\main.cpp" />

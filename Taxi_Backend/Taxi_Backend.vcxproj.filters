@@ -13,9 +13,6 @@
     <Filter Include="presentation">
       <UniqueIdentifier>{d4449aae-f727-442a-ac52-5e72e940106c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="use_cases">
-      <UniqueIdentifier>{45087a74-3bb9-4125-89f4-ae2cf8b69d11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="main">
       <UniqueIdentifier>{897bb3a0-619a-4fb2-aaaf-a30848dd8084}</UniqueIdentifier>
     </Filter>
@@ -27,15 +24,6 @@
     </Filter>
     <Filter Include="infrastructure\database">
       <UniqueIdentifier>{9a697feb-3330-4a4f-b6a5-355ac12f0856}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="presentation\repos">
-      <UniqueIdentifier>{9a2545fe-a781-4ee5-b800-3fc1a8400204}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="infrastructure\model">
-      <UniqueIdentifier>{899da19b-6558-4959-bf3f-8a96d27cffdf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="infrastructure\model\order_model">
-      <UniqueIdentifier>{64fa834f-0a39-4482-9cb9-620dd09a40e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="lib\exceptions">
       <UniqueIdentifier>{3ab671b9-7ea9-4fce-9d11-0eedcdfd9169}</UniqueIdentifier>
@@ -49,22 +37,25 @@
     <Filter Include="infrastructure\network">
       <UniqueIdentifier>{2ebb41a1-2eef-4989-9d4d-bc068554bcb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="presentation\network">
-      <UniqueIdentifier>{9b85bf1b-df68-4ddb-935b-a2bcfbc8d44b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="infrastructure\security">
       <UniqueIdentifier>{01b7f253-0d46-46d1-b033-47f9982a09c9}</UniqueIdentifier>
     </Filter>
     <Filter Include="adapters">
       <UniqueIdentifier>{3f03d0e2-6ca8-43c8-8df4-8179073f55c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="application">
+      <UniqueIdentifier>{49d0a154-5c8d-4ece-ba0a-c0ca7d571c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\interfaces">
+      <UniqueIdentifier>{8ec54f11-b846-48a3-bf77-e8eb0c141b84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain\use_cases">
+      <UniqueIdentifier>{2e00f662-59e9-4867-8ec4-08e87b6afc0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\lib.h">
       <Filter>lib</Filter>
-    </ClInclude>
-    <ClInclude Include="use_cases\booking.h">
-      <Filter>use_cases</Filter>
     </ClInclude>
     <ClInclude Include="domain\domain.h">
       <Filter>domain</Filter>
@@ -75,35 +66,17 @@
     <ClInclude Include="domain\enteties\passenger.h">
       <Filter>domain\enteties</Filter>
     </ClInclude>
-    <ClInclude Include="use_cases\dto.h">
-      <Filter>use_cases</Filter>
-    </ClInclude>
-    <ClInclude Include="presentation\user_interface.h">
-      <Filter>presentation</Filter>
-    </ClInclude>
     <ClInclude Include="presentation\console_ui.h">
       <Filter>presentation</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\database\db_connection.h">
       <Filter>infrastructure\database</Filter>
     </ClInclude>
-    <ClInclude Include="presentation\repos\interface_user_repository.h">
-      <Filter>presentation\repos</Filter>
-    </ClInclude>
-    <ClInclude Include="infrastructure\model\order_model\order_model.h">
-      <Filter>infrastructure\model\order_model</Filter>
-    </ClInclude>
-    <ClInclude Include="presentation\repos\interface_order_repository.h">
-      <Filter>presentation\repos</Filter>
-    </ClInclude>
     <ClInclude Include="lib\exceptions\exception.h">
       <Filter>lib\exceptions</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\db_provider.h">
       <Filter>infrastructure</Filter>
-    </ClInclude>
-    <ClInclude Include="use_cases\save_user_booking_orders.h">
-      <Filter>use_cases</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\repository\order_repository\order_repository.h">
       <Filter>infrastructure\repository\order_repository</Filter>
@@ -114,17 +87,11 @@
     <ClInclude Include="domain\enteties\user.h">
       <Filter>domain\enteties</Filter>
     </ClInclude>
-    <ClInclude Include="infrastructure\network\api_client.h">
-      <Filter>infrastructure\network</Filter>
-    </ClInclude>
     <ClInclude Include="infrastructure\network\api_client_impl.h">
       <Filter>infrastructure\network</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\network\serializer.h">
       <Filter>infrastructure\network</Filter>
-    </ClInclude>
-    <ClInclude Include="use_cases\calculate_distance.h">
-      <Filter>use_cases</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\api_provider.h">
       <Filter>infrastructure</Filter>
@@ -132,26 +99,47 @@
     <ClInclude Include="lib\config.h">
       <Filter>lib</Filter>
     </ClInclude>
-    <ClInclude Include="presentation\network\interface_api.h">
-      <Filter>presentation\network</Filter>
-    </ClInclude>
     <ClInclude Include="presentation\auth_console_ui.h">
       <Filter>presentation</Filter>
     </ClInclude>
-    <ClInclude Include="use_cases\auth.h">
-      <Filter>use_cases</Filter>
-    </ClInclude>
     <ClInclude Include="infrastructure\security\hash_util.h">
       <Filter>infrastructure\security</Filter>
-    </ClInclude>
-    <ClInclude Include="use_cases\user_balance.h">
-      <Filter>use_cases</Filter>
     </ClInclude>
     <ClInclude Include="adapters\session.h">
       <Filter>adapters</Filter>
     </ClInclude>
     <ClInclude Include="lib\logger.h">
       <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\order_repository_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\user_repository_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\i_console_ui.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\api_client_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\auth_service.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\booking.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\calculate_distance.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\dto.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\save_user_booking_orders.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\user_balance.h">
+      <Filter>domain\use_cases</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="infrastructure\repository\user_repository\user_repository.cpp">
       <Filter>infrastructure\repository\user_repository</Filter>
+    </ClCompile>
+    <ClCompile Include="application\interfaces\i_auth_console.h">
+      <Filter>application\interfaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

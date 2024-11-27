@@ -1,8 +1,8 @@
 #ifndef CALCULATE_DISTANCE_H
 #define CALCULATE_DISTANCE_H
 
-#include "../infrastructure/network/api_client_impl.h"
-#include "../infrastructure/network/serializer.h"
+#include "../../infrastructure/network/api_client_impl.h"
+#include "../../infrastructure/network/serializer.h"
 
 class CalculateDistance {
 public:

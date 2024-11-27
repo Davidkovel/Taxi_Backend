@@ -1,8 +1,10 @@
 #ifndef AUTH_CONSOLE_UI_H
 #define AUTH_CONSOLE_UI_H
 
-#include "../use_cases/auth.h"
+#include "../domain/use_cases/auth_service.h"
 #include "../infrastructure/db_provider.h"
+#include "../application/interfaces/i_auth_console.h"
+
 #include "console_ui.h"
 
 struct UserInfo {
@@ -13,7 +15,7 @@ struct UserInfo {
     int age;
 };
 
-class AuthConsole {
+class AuthConsole : public IAuthConsole {
 private:
     AuthUseCase authUseCase;
     DatabaseProvider& dbProvider;
@@ -33,16 +35,14 @@ public:
         display_welcome_message();
 
         while (true) {
-            cout << "====================================" << endl;
-            cout << "||         Authentication         ||" << endl;
-            cout << "====================================" << endl;
-            cout << "|| 1. Login                       ||" << endl;
-            cout << "====================================" << endl;
-            cout << "|| 2. Register                    ||" << endl;
-            cout << "====================================" << endl;
-            cout << "|| 3. Quit                        ||" << endl;
-            cout << "====================================" << endl;
-            cout << "|| Your option: ";
+            std::cout << "====================================" << std::endl;
+            std::cout << "||         Authentication         ||" << std::endl;
+            std::cout << "====================================" << std::endl;
+            std::cout << "|| 1. Login                       ||" << std::endl;
+            std::cout << "|| 2. Register                    ||" << std::endl;
+            std::cout << "|| 3. Quit                        ||" << std::endl;
+            std::cout << "====================================" << std::endl;
+            std::cout << "|| Your option: ";
 
             int choice;
             cin >> choice;

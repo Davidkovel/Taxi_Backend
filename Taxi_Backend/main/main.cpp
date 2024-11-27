@@ -14,15 +14,20 @@ int main()
 
     string db_path = "example.db";
     DatabaseProvider dbProvider(db_path);
-    AuthConsole auth_console(dbProvider);
+    IAuthConsole* authConsole = new AuthConsole(dbProvider);
 
-    auth_console.displayTerminal();
-
+    authConsole->displayTerminal();
     return 0;
 }
 
 
 /*
+
+ÍÀÄÎ Â ÒÀÁËÈÖÅ PASSENGER È DRIVER ÑÎÇÄÀÒÜ, ÏÎËÜÇÎÂÀÒÅËÜ ÑÀÌ ÂÛÁÈÐÀÅÒ ÊÈÈÌ ÑÒÀÒÜ
+ÏÐÈ ÐÅÃÈÑÒÐÀÖÈß ÌÛ ÑÎÕÐÀÍßÌ ÑÍÀ×ÀËÀ ÒÀÁËÈÖÓ ÊÀÊ USER
+Â BOOKING.H ÏÐÈ DEPOSIT ÌÛ ÁÓÄÅÌ ÎÒ SESSION ÏÎËÓ×ÀÒÜ ÊÀÊÓÞ ÐÎËÜ (ÏÎËÜÇÎÂÀÒÅËÜ ÏÐÈ ÐÅÃÈÑÒÐÀÖÈÈ ÂÛÁÐÀË)
+À ÒÀÊÆÅ ÌÅÍÞ ÍÀÄÎ ÄËß ÎÒÅÄÜÍÛÕ ÎÒ DRIVER È PASSENGER
+
 
 ÏÎÑËÅ ÑÄÅËÀÍÎ ÔÈ×Ó ÏÐÎ ÎÏËÀÒÓ, 
 ÑÄÅËÓÙÈÉ ÏÎÄÕÎÄ ÄÎÁÀÂÈÒÜ ACID ÃÀÐÀÍÒÈÉ À ÒÀÊÆÅ ÄÎÁÀÂÈÒ ÎÒ USE TABLE ÅÙÅ 2 FOREIGN KEY->PASSENGER 

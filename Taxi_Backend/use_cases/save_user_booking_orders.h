@@ -18,10 +18,13 @@ public:
     }
     
     void save_to_csv(int user_id, const string& file_path) {
+        auto& logger = logger::Logger::getInstance();
         map<int, tuple<string, string, string, double>> orders = orderRepo->saveUserOrders(user_id);
 
         ofstream file(file_path);
+        logger.info("File opened");
         if (!file.is_open()) {
+            logger.error("Error opening file for writing");
             throw exceptions::CSVFileException("Error opening file for writing:" + file_path);
             return;
         }
@@ -41,7 +44,8 @@ public:
         }
 
         file.close();
-        cout << "Orders saved successfully to " << file_path << endl;
+        logger.info("file closed");
+        logger.info("Orders saved successfully to " + file_path);
     }
 
 };

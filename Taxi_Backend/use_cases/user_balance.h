@@ -12,9 +12,11 @@ private:
     SQLiteUserRepository* userRepo;
 
     User* updateBalance(int userId, double amount) {
+        auto& logger = logger::Logger::getInstance();
         User* user = userRepo->findUserById(userId);
 
         if (!user) {
+            logger.error("User not found");
             throw exceptions::ProcessException("User not found");
         }
 
@@ -67,9 +69,8 @@ public:
     }
 
     bool deductBalance(int userId, double amount) {
-        User* user = userRepo->findUserByEmail("dd");
+        User* user = userRepo->findUserByEmail(session->getUserEmail());
         if (user == nullptr) {
-            cout << "EORORORO NULLTR";
             throw runtime_error("User not found");
         }
 
@@ -82,6 +83,7 @@ public:
         user->setBalance(newBalance);
 
         userRepo->updateUserBalance(user->getEmail(), newBalance);
+        delete user;
         return true;
     }
 

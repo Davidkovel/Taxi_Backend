@@ -27,7 +27,7 @@ public:
     }
 
     int getUserId() const { return user_id; }
-    string getEmail() const { return email; }
+    string getUserEmail() const { return email; }
 
     void resetSession() {
         user_id = -1;

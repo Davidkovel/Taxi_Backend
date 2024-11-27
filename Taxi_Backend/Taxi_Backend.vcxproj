@@ -37,6 +37,7 @@
     <ClInclude Include="lib\config.h" />
     <ClInclude Include="lib\exceptions\exception.h" />
     <ClInclude Include="lib\lib.h" />
+    <ClInclude Include="lib\logger.h" />
     <ClInclude Include="presentation\auth_console_ui.h" />
     <ClInclude Include="presentation\console_ui.h" />
     <ClInclude Include="presentation\network\interface_api.h" />

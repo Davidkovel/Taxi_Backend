@@ -8,6 +8,8 @@
 #include <exception>
 #include <iomanip>
 #include <sstream>
+#include <mutex>
+#include <chrono>
 #include <optional>
 #include <sqlite3.h>
 #include <curl/curl.h>
@@ -21,6 +23,10 @@ namespace exceptions {
     class DBException;
     class CSVFileException;
     class ProcessException;
+}
+
+namespace logger {
+    class Logger;
 }
 
 using OrderMap = map<int, tuple<string, string, string, double>>;

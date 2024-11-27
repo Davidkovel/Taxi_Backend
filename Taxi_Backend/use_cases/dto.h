@@ -28,13 +28,12 @@ public:
 		{
 		case 1:
 			booking.set_information_for_booking_taxi();
-			booking.displayBookingInfo();
 			break;
 		case 2:
 			user_balance.deposit();
 			break;
 		case 3:
-			save_booking.save_to_csv(0, "user_orders.csv");
+			save_booking.save_to_csv(session->getUserId(), "user_orders.csv");
 			break;
 
 		default:

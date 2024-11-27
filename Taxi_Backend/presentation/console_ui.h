@@ -15,15 +15,23 @@ public:
 
     void display_main_menu() override {
         while (true) {
-            cout << "Choose an option:" << endl;
-            cout << "1. Book a taxi" << endl;
-            cout << "2. Deposit balance" << endl;
-            cout << "3. Show your booking orders (.csv format)" << endl;
-            cout << "4. Logout" << endl;
-            cout << "Your option: ";
+            cout << "========================================" << endl;
+            cout << "||           Choose an option:        ||" << endl;
+            cout << "========================================" << endl;
+            cout << "|| 1. Book a taxi                     ||" << endl;
+            cout << "========================================" << endl;
+            cout << "|| 2. Deposit balance                 ||" << endl;
+            cout << "========================================" << endl;
+            cout << "|| 3. Show your booking orders (.csv) ||" << endl;
+            cout << "========================================" << endl;
+            cout << "|| 4. Logout                          ||" << endl;
+            cout << "========================================" << endl;
+            cout << "|| Your option: ";
 
             int choice;
             cin >> choice;
+
+            cout << endl;
 
             if (choice == 4) {
                 cout << "Exiting to the login menu..." << endl;

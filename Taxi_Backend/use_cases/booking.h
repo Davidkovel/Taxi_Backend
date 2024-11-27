@@ -3,13 +3,13 @@
 
 #include "../domain/domain.h"
 #include "../lib/config.h"
+#include "../lib/logger.h"
 #include "../infrastructure/repository/order_repository/order_repository.h"
 #include "../infrastructure/db_provider.h"
 #include "../infrastructure/api_provider.h"
 #include "../adapters/session.h"
 #include "./calculate_distance.h"
 #include "./user_balance.h"
-
 
 class Booking {
 private:
@@ -35,6 +35,7 @@ public:
 
     void bookTaxi(string& from, string& to) {
         try {
+            auto& logger = logger::Logger::getInstance();
             string distance, duration;
 
             ResponseData result_from_api = calculateDistance->execute(from, to, apiKey);
@@ -45,13 +46,15 @@ public:
 
             bool success = deductFareFromUser(fare);
             if (!success) {
-                cout << "Error! You don't have enough money to pay for the taxi." << endl;
+                logger.error("Not enough money");
+                cout << "You don't have enough money to pay for the taxi." << endl;
                 return;
             }
 
             orderRepo->add_order(session->getUserId(), from, to, "Completed", fare);
 
             cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
+            logger.info("Taxi booked succesfuly");
         }
         catch (const exception& ex) {
             cerr << "Error during booking: " << ex.what() << endl;
@@ -66,24 +69,29 @@ public:
 
     bool deductFareFromUser(double fare) {
         try {
+            auto& logger = logger::Logger::getInstance();
             if (!userRepo) {
+                logger.error("User repository is not initialized");
                 throw runtime_error("User repository is not initialized");
             }
 
             User* user = userRepo->findUserById(session->getUserId());
             if (!user) {
+                logger.error("User not found");
                 throw runtime_error("User not found");
             }
 
             if (user->getBalance() < fare) {
+                logger.error("Insufficient balance to book the taxi");
                 throw runtime_error("Insufficient balance to book the taxi");
                 return false;
             }
 
             double newBalance = user->getBalance() - fare;
-            userRepo->updateUserBalance(session->getEmail(), newBalance);
+            userRepo->updateUserBalance(session->getUserEmail(), newBalance);
 
-            cout << "Fare deducted successfully. New balance: " << newBalance << endl;
+            logger.info("Fare deducted successfully");
+            cout << "New balance: " << newBalance << endl;
             return true;
         }
         catch (const exception& e) {

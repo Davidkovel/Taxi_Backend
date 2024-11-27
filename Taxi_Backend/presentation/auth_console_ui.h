@@ -22,16 +22,31 @@ public:
     AuthConsole(DatabaseProvider& dbProvider)
         : dbProvider(dbProvider), authUseCase(dbProvider.setUserRepositoryForConsole()) {}
 
+    void display_welcome_message() {
+        std::cout << "===================================" << std::endl;
+        std::cout << "||           Welcome             ||" << std::endl;
+        std::cout << "||      To Our Application       ||" << std::endl;
+        std::cout << "===================================" << std::endl;
+    }
+
     void displayTerminal() {
+        display_welcome_message();
+
         while (true) {
-            cout << "Choose an option:" << endl;
-            cout << "1. Login" << endl;
-            cout << "2. Register" << endl;
-            cout << "3. Quit" << endl;
-            cout << "Your option: ";
+            cout << "====================================" << endl;
+            cout << "||         Authentication         ||" << endl;
+            cout << "====================================" << endl;
+            cout << "|| 1. Login                       ||" << endl;
+            cout << "====================================" << endl;
+            cout << "|| 2. Register                    ||" << endl;
+            cout << "====================================" << endl;
+            cout << "|| 3. Quit                        ||" << endl;
+            cout << "====================================" << endl;
+            cout << "|| Your option: ";
 
             int choice;
             cin >> choice;
+            cout << endl;
 
             if (choice == 3) break;
 

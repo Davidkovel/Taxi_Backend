@@ -47,6 +47,7 @@ public:
         }
 
         if (HashUtil::verifyPassword(password, user->getPassword())) {
+            cout << endl;
             cout << "Welcome, " << user->getName() << "!" << endl;
             Session::getInstance()->setUser(user->getUserId() ? *user->getUserId() : -1, user->getEmail());
             delete user;

@@ -150,6 +150,9 @@
     <ClInclude Include="adapters\session.h">
       <Filter>adapters</Filter>
     </ClInclude>
+    <ClInclude Include="lib\logger.h">
+      <Filter>lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main\main.cpp">

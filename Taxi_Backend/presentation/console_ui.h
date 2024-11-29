@@ -2,43 +2,38 @@
 #define CONSOLE_UI_H
 
 #include "../application/interfaces/i_console_ui.h"
-#include "../domain/use_cases/dto.h"
+#include "../domain/dto/dto.h"
 #include "../infrastructure/db_provider.h"
+#include "../adapters/session.h"
+
+#include "driver_menu.h"
+#include "passenger_menu.h"
 
 class CONSOLE_UI : virtual public IConsole {
 private:
-    DTO dto;
+    DatabaseProvider* dbProvider;
 public:
     CONSOLE_UI() = default;
 
-    CONSOLE_UI(DatabaseProvider* provider) : dto(provider) {}
+    explicit CONSOLE_UI(DatabaseProvider* provider) : dbProvider(provider) {}
 
     void display_main_menu() override {
-        while (true) {
-            std::cout << "========================================" << std::endl;
-            std::cout << "||           Choose an option:        ||" << std::endl;
-            std::cout << "========================================" << std::endl;
-            std::cout << "|| 1. Book a taxi                     ||" << std::endl;
-            std::cout << "|| 2. Deposit balance                 ||" << std::endl;
-            std::cout << "|| 3. Show your booking orders (.csv) ||" << std::endl;
-            std::cout << "|| 4. Logout                          ||" << std::endl;
-            std::cout << "========================================" << std::endl;
-            std::cout << "|| Your option: ";
+        string role = Session::getInstance()->getUserRole();
 
-            int choice;
-            cin >> choice;
-
-            cout << endl;
-
-            if (choice == 4) {
-                cout << "Exiting to the login menu..." << endl;
-                break;
-            }
-
-            dto.call_function(choice);
+        if (role == "Passenger") {
+            PassengerDTO passengerDto(dbProvider);
+            PassengerMenu passengerMenu;
+            passengerMenu.displayMenu(passengerDto);
+        }
+        else if (role == "Driver") {
+            DriverDTO driverDto(dbProvider);
+            DriverMenu driverMenu;
+            driverMenu.displayMenu(driverDto);
+        }
+        else {
+            cout << "Unknown role: " << role << endl;
         }
     }
-
 };
 
 #endif // CONSOLE_UI_H

@@ -33,7 +33,7 @@ public:
         }
 
         userRepo.createUser(*newUser);
-        Session::getInstance()->setUser(newUser->getUserId() ? *newUser->getUserId() : -1, newUser->getEmail());
+
         delete newUser;
         return true;
     }
@@ -47,9 +47,20 @@ public:
         }
 
         if (HashUtil::verifyPassword(password, user->getPassword())) {
+            string role = userRepo.findUserRoleByEmail(email);
+
             cout << endl;
-            cout << "Welcome, " << user->getName() << "!" << endl;
-            Session::getInstance()->setUser(user->getUserId() ? *user->getUserId() : -1, user->getEmail());
+            if (role == "Passenger") {
+                cout << "Welcome, Passenger " << user->getName() << "!" << endl;
+            }
+            else if (role == "Driver") {
+                cout << "Welcome, Driver " << user->getName() << "!" << endl;
+            }
+            else {
+                cout << "Welcome, " << user->getName() << "!" << endl;
+            }
+
+            Session::getInstance()->setUser(user->getUserId() ? *user->getUserId() : -1, user->getEmail(), role);
             delete user;
             return true;
         }

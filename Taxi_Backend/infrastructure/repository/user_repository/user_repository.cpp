@@ -4,23 +4,61 @@
 SQLiteUserRepository::SQLiteUserRepository(DatabaseConnection* dbConn) : dbConn(dbConn) {}
 
 void SQLiteUserRepository::createUser(const User& user) {
-    string sql = "INSERT INTO users (name, age, email, password, role) VALUES (?, ?, ?, ?, ?);";
-    sqlite3_stmt* stmt;
+    sqlite3_stmt* stmt = nullptr;
+    sqlite3_exec(dbConn->getConnection(), "BEGIN TRANSACTION;", nullptr, nullptr, nullptr);
 
-    sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr);
-    sqlite3_bind_text(stmt, 1, user.name.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(stmt, 2, user.age);
-    sqlite3_bind_text(stmt, 3, user.email.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 4, user.passwordHash.c_str(), -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 5, user.getRole().c_str(), -1, SQLITE_TRANSIENT);
+    try {
+        // 1. Вставляем данные в базовую таблицу users
+        string sqlUsers = "INSERT INTO users (name, age, email, password, role) VALUES (?, ?, ?, ?, ?);";
+        sqlite3_prepare_v2(dbConn->getConnection(), sqlUsers.c_str(), -1, &stmt, nullptr);
+        sqlite3_bind_text(stmt, 1, user.name.c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(stmt, 2, user.age);
+        sqlite3_bind_text(stmt, 3, user.email.c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 4, user.passwordHash.c_str(), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(stmt, 5, user.getRole().c_str(), -1, SQLITE_TRANSIENT);
 
-    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            throw exceptions::DBException("Error adding user to database: " + string(sqlite3_errmsg(dbConn->getConnection())));
+        }
         sqlite3_finalize(stmt);
-        throw exceptions::DBException("Error adding user to database: " + string(sqlite3_errmsg(dbConn->getConnection())));
-    }
 
-    sqlite3_finalize(stmt);
+        // 2. Получаем ID нового пользователя
+        int userId = static_cast<int>(sqlite3_last_insert_rowid(dbConn->getConnection()));
+
+        // 3. Вставляем данные в таблицы passengers или drivers в зависимости от роли
+        if (user.getRole() == "Passenger") {
+            string sqlPassengers = "INSERT INTO passengers (passenger_id, balance) VALUES (?, ?);";
+            sqlite3_prepare_v2(dbConn->getConnection(), sqlPassengers.c_str(), -1, &stmt, nullptr);
+            sqlite3_bind_int(stmt, 1, userId);
+            sqlite3_bind_int(stmt, 2, user.balance); // Предполагается, что у User есть поле balance
+        }
+        else if (user.getRole() == "Driver") {
+            string sqlDrivers = "INSERT INTO drivers (driver_id, balance, busy) VALUES (?, ?, ?);";
+            sqlite3_prepare_v2(dbConn->getConnection(), sqlDrivers.c_str(), -1, &stmt, nullptr);
+            sqlite3_bind_int(stmt, 1, userId);
+            sqlite3_bind_int(stmt, 2, user.balance); // Предполагается, что у User есть поле balance
+            sqlite3_bind_int(stmt, 3, 0);
+        }
+        else {
+            throw exceptions::DBException("Invalid role: " + user.getRole());
+        }
+
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            throw exceptions::DBException("Error adding user to role-specific table: " + string(sqlite3_errmsg(dbConn->getConnection())));
+        }
+        sqlite3_finalize(stmt);
+
+        // 4. Завершаем транзакцию
+        sqlite3_exec(dbConn->getConnection(), "COMMIT;", nullptr, nullptr, nullptr);
+
+    }
+    catch (const exceptions::DBException& e) {
+        sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
+        if (stmt) sqlite3_finalize(stmt);
+        throw; // Перепросываем исключение
+    }
 }
+
 
 User* SQLiteUserRepository::findUserByEmail(const string& email) {
     string sql = "SELECT id, name, age, email, password, balance, role FROM users WHERE email = ?;";
@@ -134,24 +172,70 @@ void SQLiteUserRepository::updateUserBalance(const string& email, double new_bal
 
         string sql = "UPDATE users SET balance = ? WHERE email = ?;";
         sqlite3_stmt* stmt;
+
         if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
             throw runtime_error("Failed to prepare statement");
         }
-        sqlite3_bind_double(stmt, 1, new_balance);
-        sqlite3_bind_text(stmt, 2, email.c_str(), -1, SQLITE_STATIC);
+
+        sqlite3_bind_double(stmt, 1, new_balance);  // Привязка нового баланса
+        sqlite3_bind_text(stmt, 2, email.c_str(), -1, SQLITE_STATIC);  // Привязка email
 
         if (sqlite3_step(stmt) != SQLITE_DONE) {
             throw runtime_error("Failed to update balance");
         }
+
+        // Освобождение ресурсов
         sqlite3_finalize(stmt);
 
+        // Фиксация транзакции
         if (sqlite3_exec(dbConn->getConnection(), "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK) {
             throw runtime_error("Failed to commit transaction");
         }
     }
     catch (const exception& ex) {
+        // Откат транзакции в случае ошибки
         sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
         throw exceptions::DBException("Failed to update user balance", ex.what());
+    }
+}
+
+void SQLiteUserRepository::updateUserBalance(int user_id, double new_balance) {
+    sqlite3_stmt* stmt = nullptr;  // Инициализация stmt значением nullptr
+    string sql = "UPDATE users SET balance = ? WHERE id = ?;";  // Исправление названия колонки
+
+    try {
+        // Начало транзакции
+        if (sqlite3_exec(dbConn->getConnection(), "BEGIN TRANSACTION;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to begin transaction");
+        }
+
+        // Подготовка SQL запроса
+        if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to prepare statement: " + string(sqlite3_errmsg(dbConn->getConnection())));
+        }
+
+        // Привязка параметров
+        sqlite3_bind_double(stmt, 1, new_balance);  // Привязка нового баланса
+        sqlite3_bind_int(stmt, 2, user_id);  // Привязка user_id (исправлено на int)
+
+        // Выполнение SQL запроса
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            throw runtime_error("Failed to update balance: " + string(sqlite3_errmsg(dbConn->getConnection())));
+        }
+
+        // Освобождение ресурсов
+        sqlite3_finalize(stmt);
+
+        // Фиксация транзакции
+        if (sqlite3_exec(dbConn->getConnection(), "COMMIT;", nullptr, nullptr, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to commit transaction");
+        }
+    }
+    catch (const exception& ex) {
+        // Откат транзакции в случае ошибки
+        sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
+        if (stmt) sqlite3_finalize(stmt);
+        throw exceptions::DBException("Failed to update user balance: " + string(ex.what()));
     }
 }
 
@@ -219,4 +303,56 @@ bool SQLiteUserRepository::deductUserBalance(int user_id, double amount)
         sqlite3_exec(dbConn->getConnection(), "ROLLBACK;", nullptr, nullptr, nullptr);
         throw exceptions::DBException("Error deducting user balance", e.what());
     }
+}
+
+
+string SQLiteUserRepository::findUserRoleByEmail(const string& email) {
+    string sql = "SELECT role FROM users WHERE email = ?;";
+    sqlite3_stmt* stmt;
+
+    if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        throw exceptions::DBException("Error preparing SQL: " + string(sqlite3_errmsg(dbConn->getConnection())));
+    }
+
+    sqlite3_bind_text(stmt, 1, email.c_str(), -1, SQLITE_TRANSIENT);
+
+    string role;
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        role = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+    }
+    else {
+        throw exceptions::DBException("No role found for email: " + email);
+    }
+
+    sqlite3_finalize(stmt);
+    return role;
+}
+
+double SQLiteUserRepository::getUserBalance(int user_id) {
+    sqlite3_stmt* stmt = nullptr;
+    string sql = "SELECT balance FROM users WHERE id = ?;";
+    double balance = 0.0;
+
+    try {
+        if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+            throw runtime_error("Failed to prepare SQL statement for fetching user balance: " + string(sqlite3_errmsg(dbConn->getConnection())));
+        }
+
+        sqlite3_bind_int(stmt, 1, user_id);
+
+        if (sqlite3_step(stmt) == SQLITE_ROW) {
+            balance = sqlite3_column_double(stmt, 0);
+        }
+        else {
+            throw runtime_error("No user found with the given ID.");
+        }
+
+        sqlite3_finalize(stmt);
+    }
+    catch (const exception& ex) {
+        if (stmt) sqlite3_finalize(stmt);
+        throw runtime_error(string("Error fetching user balance: ") + ex.what());
+    }
+
+    return balance;
 }

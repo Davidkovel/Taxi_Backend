@@ -25,24 +25,24 @@ public:
         : dbProvider(dbProvider), authUseCase(dbProvider.setUserRepositoryForConsole()) {}
 
     void display_welcome_message() {
-        std::cout << "===================================" << std::endl;
-        std::cout << "||           Welcome             ||" << std::endl;
-        std::cout << "||      To Our Application       ||" << std::endl;
-        std::cout << "===================================" << std::endl;
+        cout << "===================================" << endl;
+        cout << "||           Welcome             ||" << endl;
+        cout << "||      To Our Application       ||" << endl;
+        cout << "===================================" << endl;
     }
 
     void displayTerminal() {
         display_welcome_message();
 
         while (true) {
-            std::cout << "====================================" << std::endl;
-            std::cout << "||         Authentication         ||" << std::endl;
-            std::cout << "====================================" << std::endl;
-            std::cout << "|| 1. Login                       ||" << std::endl;
-            std::cout << "|| 2. Register                    ||" << std::endl;
-            std::cout << "|| 3. Quit                        ||" << std::endl;
-            std::cout << "====================================" << std::endl;
-            std::cout << "|| Your option: ";
+            cout << "====================================" << endl;
+            cout << "||         Authentication         ||" << endl;
+            cout << "====================================" << endl;
+            cout << "|| 1. Login                       ||" << endl;
+            cout << "|| 2. Register                    ||" << endl;
+            cout << "|| 3. Quit                        ||" << endl;
+            cout << "====================================" << endl;
+            cout << "|| Your option: ";
 
             int choice;
             cin >> choice;
@@ -53,6 +53,7 @@ public:
             if (choice == 1) { // Login
                 UserInfo user = setInformationLogin();
                 if (authUseCase.loginUser(user.email, user.password)) {
+                    system("cls");
                     cout << "Login successful!" << endl;
 
                     CONSOLE_UI consoleUi(&dbProvider);
@@ -65,6 +66,7 @@ public:
             else if (choice == 2) { // Register
                 UserInfo user = setInformationRegister();
                 if (authUseCase.registerUser(user.username, user.age, user.email, user.password, user.role)) {
+                    system("cls");
                     cout << "Registration successful!" << endl;
                 }
                 else {
@@ -94,7 +96,7 @@ public:
         cin >> user.email;
         cout << "Enter password: ";
         cin >> user.password;
-        cout << "Enter your role: ";
+        cout << "Enter your role (Passenger or Driver): ";
         cin >> user.role;
 
         return user;

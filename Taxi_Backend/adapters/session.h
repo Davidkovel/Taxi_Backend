@@ -10,8 +10,9 @@ private:
     static Session* instance;
     int user_id;
     string email;
+    string role;
 
-    Session() : user_id(-1), email("Null") {}
+    Session() : user_id(-1), email("Null"), role("Null") {}
 
 public:
     static Session* getInstance() {
@@ -21,17 +22,21 @@ public:
         return instance;
     }
 
-    void setUser(int id, const string& user_email) {
-        user_id = id;
-        email = user_email;
+    void setUser(int id, const string& user_email, const string& user_role) {
+        this->user_id = id;
+        this->email = user_email;
+        this->role = user_role;
     }
 
+    
     int getUserId() const { return user_id; }
     string getUserEmail() const { return email; }
+    string getUserRole() const { return role; }
 
     void resetSession() {
         user_id = -1;
-        email = "";
+        email = "Null";
+        role = "Null";
     }
 
     bool isUserLoggedIn() const {

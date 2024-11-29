@@ -6,6 +6,7 @@
 #include <tuple>
 #include <stdexcept>
 #include <exception>
+#include <random>
 #include <iomanip>
 #include <sstream>
 #include <mutex>

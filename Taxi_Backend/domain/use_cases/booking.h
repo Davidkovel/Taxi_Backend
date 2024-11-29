@@ -21,6 +21,7 @@ private:
 
     SQLiteOrderRepository* orderRepo;
     SQLiteUserRepository* userRepo;
+    SQLiteDriverRepository* driverRepo;
     CalculateDistance* calculateDistance;
     UserBalance* userBalanceService;
 public:
@@ -32,12 +33,27 @@ public:
     {
         this->orderRepo = provider->setOrderRepository();
         this->userRepo = provider->setUserRepository();
+        this->driverRepo = provider->setDriverRepository();
     }
 
     void bookTaxi(string& from, string& to) {
         try {
             auto& logger = logger::Logger::getInstance();
             string distance, duration;
+
+            vector<int> availableDrivers = driverRepo->getAvailableDriverIds();
+            if (availableDrivers.empty()) {
+                cout << "No available taxis at the moment. Please try again later." << endl;
+                logger.error("No available drivers for the booking.");
+                return;
+            }
+
+            random_device rd;
+            mt19937 gen(rd());
+            uniform_int_distribution<> dist(0, availableDrivers.size() - 1);
+
+            int randomIndex = dist(gen);
+            int selectedDriverId = availableDrivers[randomIndex];
 
             ResponseData result_from_api = calculateDistance->execute(from, to, apiKey);
 
@@ -53,6 +69,15 @@ public:
             }
 
             orderRepo->add_order(session->getUserId(), from, to, "Completed", fare);
+            orderRepo->add_order(selectedDriverId, from, to, "Completed", fare);
+
+            User* driver = userRepo->findUserById(selectedDriverId);
+            if (!driver) {
+                throw runtime_error("Driver not found.");
+            }
+
+            double newBalanceDriver = driver->getBalance() + fare;
+            driverRepo->updateDriverBalance(selectedDriverId, newBalanceDriver);
 
             cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
             logger.info("Taxi booked succesfuly");
@@ -62,6 +87,7 @@ public:
         }
     }
 
+    
     double calculateFare(double distance) {
         this->cost = distance * 0.5;
         cout << "Calculated fare: " << this->cost << " USD." << endl;

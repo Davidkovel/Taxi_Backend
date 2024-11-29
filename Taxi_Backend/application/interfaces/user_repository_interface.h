@@ -11,7 +11,10 @@ public:
     virtual bool userExists(const string& email) = 0;
     virtual User* findUserById(int user_id) = 0;
     virtual void updateUserBalance(const string& email, double amount) = 0;
+    virtual void updateUserBalance(int user_id, double amount) = 0;
     virtual bool deductUserBalance(int user_id, double amount) = 0;
+    virtual string findUserRoleByEmail(const string& email) = 0;
+    virtual double getUserBalance(int user_id) = 0;
     virtual ~IUserRepository() = default;
 };
 

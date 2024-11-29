@@ -96,10 +96,8 @@ public:
                 throw exceptions::ProcessException("Withdrawal amount must be greater than zero");
             }
 
-            User* updatedUser = updateBalance(userId, -amount);
-            cout << "Withdrawal successful! New balance: " << updatedUser->getBalance() << endl;
-
-            delete updatedUser;
+            bool success = deductBalance(userId, amount);
+            cout << "Withdrawal successful!" << endl;
 
         }
         catch (const exception& ex)
@@ -107,6 +105,16 @@ public:
             cerr << "Error withdraw: " << ex.what() << endl;
         }
     }
+
+
+    double TotallyDriverEarned(int driver_id)
+    {
+
+        double earned_money = userRepo->getUserBalance(driver_id);
+        cout << "Congratulation you earned: " << earned_money << endl;
+        return earned_money;
+    }
+
 
     ~UserBalance() {}
 };

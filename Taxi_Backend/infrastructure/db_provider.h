@@ -3,12 +3,14 @@
 
 #include "../infrastructure/database/db_connection.h"
 #include "../infrastructure/repository/user_repository/user_repository.h"
+#include "../infrastructure/repository/driver_repository/driver_repository.h"
 #include "../infrastructure/repository/order_repository/order_repository.h"
 
 class DatabaseProvider {
 private:
     DatabaseConnection dbConn;
     SQLiteUserRepository userRepository;
+    SQLiteDriverRepository driverRepository;
     SQLiteOrderRepository orderRepository;
 
 public:
@@ -17,6 +19,7 @@ public:
     DatabaseProvider(string path_db)
         : dbConn(path_db),
         userRepository(&dbConn),
+        driverRepository(&dbConn),
         orderRepository(&dbConn) {}
     
     // TEMPORALLY METHOD
@@ -26,6 +29,10 @@ public:
 
     SQLiteUserRepository* setUserRepository() {
         return &userRepository;
+    }
+
+    SQLiteDriverRepository* setDriverRepository() {
+        return &driverRepository;
     }
 
     SQLiteOrderRepository* setOrderRepository() {

@@ -52,6 +52,12 @@
     <Filter Include="domain\use_cases">
       <UniqueIdentifier>{2e00f662-59e9-4867-8ec4-08e87b6afc0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="domain\dto">
+      <UniqueIdentifier>{c62749c8-cca7-44a5-9323-630c9708401d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository\driver_repository">
+      <UniqueIdentifier>{c7ffe9a9-842d-4641-90c1-62648a4f2fbd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\lib.h">
@@ -132,13 +138,31 @@
     <ClInclude Include="domain\use_cases\calculate_distance.h">
       <Filter>domain\use_cases</Filter>
     </ClInclude>
-    <ClInclude Include="domain\use_cases\dto.h">
-      <Filter>domain\use_cases</Filter>
-    </ClInclude>
     <ClInclude Include="domain\use_cases\save_user_booking_orders.h">
       <Filter>domain\use_cases</Filter>
     </ClInclude>
     <ClInclude Include="domain\use_cases\user_balance.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\i_menu.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\passenger_menu.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\driver_menu.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\dto\dto.h">
+      <Filter>domain\dto</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\repository\driver_repository\driver_repository.h">
+      <Filter>infrastructure\repository\driver_repository</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\driver_repository_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\driver_statistic.h">
       <Filter>domain\use_cases</Filter>
     </ClInclude>
   </ItemGroup>
@@ -154,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="application\interfaces\i_auth_console.h">
       <Filter>application\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="infrastructure\repository\driver_repository\driver_repository.cpp">
+      <Filter>infrastructure\repository\driver_repository</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

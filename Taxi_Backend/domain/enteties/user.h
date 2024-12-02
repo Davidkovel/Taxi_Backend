@@ -1,4 +1,4 @@
-﻿#ifndef USER_H
+#ifndef USER_H
 #define USER_H
 
 #include "../domain.h"

@@ -72,9 +72,6 @@
     <ClInclude Include="domain\domain.h">
       <Filter>domain</Filter>
     </ClInclude>
-    <ClInclude Include="domain\enteties\driver.h">
-      <Filter>domain\enteties</Filter>
-    </ClInclude>
     <ClInclude Include="domain\enteties\passenger.h">
       <Filter>domain\enteties</Filter>
     </ClInclude>
@@ -184,6 +181,9 @@
       <Filter>application\utils</Filter>
     </ClInclude>
     <ClInclude Include="domain\enteties\user.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\driver.h">
       <Filter>domain\enteties</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,6 +35,9 @@
 *Схема бази даних:*  
 ![image](https://github.com/user-attachments/assets/07420c1f-b580-4aeb-8e70-997ec660a566)
 
+*Схема архiтектура проекту:* 
+![image](https://github.com/user-attachments/assets/41cf0f90-b231-460c-8e63-4ead9f16d423)
+
 ---
 
 ## Установка і запуск  

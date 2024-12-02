@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AuthService" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAACAAAAAAAAAAAARAAAAA=</HashCode>
+      <FileName>domain\services\auth_service.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exceptions::BaseException" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAACAAAAAAAAACAAAAAAQAAAAAAAAAAAAACA=</HashCode>
+      <FileName>lib\exceptions\exception.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exceptions::DBException" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>lib\exceptions\exception.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exceptions::CSVFileException" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>lib\exceptions\exception.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="exceptions::ProcessException" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>lib\exceptions\exception.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="logger::Logger" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAISAAAAAAIAgAAAAAGACAAAAAAQAAQASAAgAgAACBA=</HashCode>
+      <FileName>lib\logger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="User" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAEAgAAAhQAghAAAIABAIAAAEAAAAgAAGAAAAgAA=</HashCode>
+      <FileName>domain\enteties\passenger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Passenger" Collapsed="true">
+    <Position X="8.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>domain\enteties\passenger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Driver" Collapsed="true">
+    <Position X="10.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAABAAAAAEAAAAAAQAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\enteties\passenger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookingUseCase" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>domain\use_cases\booking.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DistanceCalculationUseCase" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\use_cases\calculate_distance.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SaveOrdersCsvUseCase" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAQAAAAAAAAEAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>domain\use_cases\save_user_booking_orders.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserBalanceUseCase" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAIAAAAAAAIAAAQAAAAAAQAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\use_cases\user_balance.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PassengerDTO" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAEAEAACAgAAAAAAQAAgAgAAAAA=</HashCode>
+      <FileName>domain\dto\dto.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DriverDTO" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAEAACAgAAAAIAAAAgAgAAAAA=</HashCode>
+      <FileName>domain\dto\dto.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookingService" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAQCgAAIgAACACACAAAAwAAAQAAAAAAAAAwAAAIA=</HashCode>
+      <FileName>domain\services\booking_service.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DistanceCalculationService" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\services\calculate_distance_service.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SaveBookingOrdersService" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>domain\services\save_orders_to_csv_service.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserBalanceService" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAAAAAEQAAACAAAEAIAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>domain\services\user_balance_service.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AuthConsole" Collapsed="true">
+    <Position X="12.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAABCCAAAEAAAABAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>presentation\auth_console_ui.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CONSOLE_UI" Collapsed="true">
+    <Position X="9.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>presentation\console_ui.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DriverMenu" Collapsed="true">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>presentation\driver_menu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PassengerMenu" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>presentation\passenger_menu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleUtils" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAIAAQAAAAAAAAgAAEAAAEAAAAgAIAAA=</HashCode>
+      <FileName>presentation\console_utils.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApiProvider" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>infrastructure\api_provider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DatabaseProvider" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAQAAAAEAAQAAAAABAAAAAAAABEBAAAAIACAAA=</HashCode>
+      <FileName>infrastructure\db_provider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SQLiteOrderRepository" Collapsed="true">
+    <Position X="6.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABCAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>infrastructure\repository\order_repository\order_repository.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SQLiteUserRepository" Collapsed="true">
+    <Position X="3.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCIAACABAAAABAAAAAAAQAAAAAAAAAAgAAABCAAAAAA=</HashCode>
+      <FileName>infrastructure\repository\user_repository\user_repository.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SQLiteDriverRepository" Collapsed="true">
+    <Position X="3.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAACAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>infrastructure\repository\driver_repository\driver_repository.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DatabaseConnection" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAQAgAAAAAAAAAAAAAQACAAAAAAAAAAAAA=</HashCode>
+      <FileName>infrastructure\database\db_connection.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="APIClientImpl" Collapsed="true">
+    <Position X="6.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAACAAAAAAAAAAAAAAAAAAACAAAAAgAA=</HashCode>
+      <FileName>infrastructure\network\api_client_impl.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Serializer" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>infrastructure\network\serializer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HashUtil" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>infrastructure\security\hash_util.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Session" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAQEkAgAAABQAAABAAAQAgAAAAAgAAQA=</HashCode>
+      <FileName>adapters\session.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAuthConsole" Collapsed="true">
+    <Position X="12.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>application\interfaces\i_auth_console.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IAPIClient" Collapsed="true">
+    <Position X="6.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>application\interfaces\api_client_interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IDriverRepository" Collapsed="true">
+    <Position X="3.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAACAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>application\interfaces\driver_repository_interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IConsole" Collapsed="true">
+    <Position X="9.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>application\interfaces\i_console_ui.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IMenu&lt;TDTO&gt;" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEA=</HashCode>
+      <FileName>application\interfaces\i_menu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IOrderRepository" Collapsed="true">
+    <Position X="6.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>application\interfaces\order_repository_interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IUserRepository" Collapsed="true">
+    <Position X="3.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCIAAAABAAAABAAAAAEAAAAAAAAAAAAgAAABCAAAAAA=</HashCode>
+      <FileName>application\interfaces\user_repository_interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StyleDecorator" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAQAAAAAAAAAAAAAAAAAAAAgAJAAA=</HashCode>
+      <FileName>application\utils\style_decorator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="UserInfo" Collapsed="true">
+    <Position X="16.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAgAAAAABEAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>presentation\auth_console_ui.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ResponseData" Collapsed="true">
+    <Position X="14.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>infrastructure\network\serializer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="logger::LogLevel" Collapsed="true">
+    <Position X="14.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAEAAAAAAAAAAAAAAARAAAAAA=</HashCode>
+      <FileName>lib\logger.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,13 +1,210 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="lib">
+      <UniqueIdentifier>{e5dc229e-55c4-4fd5-ac51-d5dc18e24e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain">
+      <UniqueIdentifier>{496fcb3d-4b6b-4b21-864d-8817fa370a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain\enteties">
+      <UniqueIdentifier>{f1469729-e8ef-4b1b-b797-e6cb558de5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="presentation">
+      <UniqueIdentifier>{d4449aae-f727-442a-ac52-5e72e940106c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="main">
-      <UniqueIdentifier>{60d50ef0-e5db-4009-8091-092e9fe3b9d5}</UniqueIdentifier>
+      <UniqueIdentifier>{897bb3a0-619a-4fb2-aaaf-a30848dd8084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure">
+      <UniqueIdentifier>{092b0ffd-df25-4147-aa59-7fc9da16db8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository">
+      <UniqueIdentifier>{8fc117d6-a7e2-47e7-a947-a37b807c214d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\database">
+      <UniqueIdentifier>{9a697feb-3330-4a4f-b6a5-355ac12f0856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\exceptions">
+      <UniqueIdentifier>{3ab671b9-7ea9-4fce-9d11-0eedcdfd9169}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository\order_repository">
+      <UniqueIdentifier>{43b1ab8b-89c9-4231-8289-c650eccd89e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository\user_repository">
+      <UniqueIdentifier>{29800156-059c-47ea-9c10-0d22fbbe0930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\network">
+      <UniqueIdentifier>{2ebb41a1-2eef-4989-9d4d-bc068554bcb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\security">
+      <UniqueIdentifier>{01b7f253-0d46-46d1-b033-47f9982a09c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="adapters">
+      <UniqueIdentifier>{3f03d0e2-6ca8-43c8-8df4-8179073f55c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application">
+      <UniqueIdentifier>{49d0a154-5c8d-4ece-ba0a-c0ca7d571c05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\interfaces">
+      <UniqueIdentifier>{8ec54f11-b846-48a3-bf77-e8eb0c141b84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain\use_cases">
+      <UniqueIdentifier>{2e00f662-59e9-4867-8ec4-08e87b6afc0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain\dto">
+      <UniqueIdentifier>{c62749c8-cca7-44a5-9323-630c9708401d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="infrastructure\repository\driver_repository">
+      <UniqueIdentifier>{c7ffe9a9-842d-4641-90c1-62648a4f2fbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="domain\services">
+      <UniqueIdentifier>{f7ccf43f-e708-4bec-91d2-ed8583980a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\utils">
+      <UniqueIdentifier>{259d1951-b560-410d-a892-6063e74dfa5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClInclude Include="lib\lib.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\domain.h">
+      <Filter>domain</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\passenger.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\console_ui.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\database\db_connection.h">
+      <Filter>infrastructure\database</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\exceptions\exception.h">
+      <Filter>lib\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\db_provider.h">
+      <Filter>infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\repository\order_repository\order_repository.h">
+      <Filter>infrastructure\repository\order_repository</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\repository\user_repository\user_repository.h">
+      <Filter>infrastructure\repository\user_repository</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\network\api_client_impl.h">
+      <Filter>infrastructure\network</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\network\serializer.h">
+      <Filter>infrastructure\network</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\api_provider.h">
+      <Filter>infrastructure</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\config.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\auth_console_ui.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\security\hash_util.h">
+      <Filter>infrastructure\security</Filter>
+    </ClInclude>
+    <ClInclude Include="adapters\session.h">
+      <Filter>adapters</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\logger.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\order_repository_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\user_repository_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\i_console_ui.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\api_client_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\booking.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\calculate_distance.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\save_user_booking_orders.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\use_cases\user_balance.h">
+      <Filter>domain\use_cases</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\i_menu.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\passenger_menu.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\driver_menu.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\dto\dto.h">
+      <Filter>domain\dto</Filter>
+    </ClInclude>
+    <ClInclude Include="infrastructure\repository\driver_repository\driver_repository.h">
+      <Filter>infrastructure\repository\driver_repository</Filter>
+    </ClInclude>
+    <ClInclude Include="application\interfaces\driver_repository_interface.h">
+      <Filter>application\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\booking_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\save_orders_to_csv_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\user_balance_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\auth_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\calculate_distance_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\console_utils.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="application\utils\style_decorator.h">
+      <Filter>application\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\user.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\driver.h">
+      <Filter>domain\enteties</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main\main.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="infrastructure\repository\order_repository\order_repository.cpp">
+      <Filter>infrastructure\repository\order_repository</Filter>
+    </ClCompile>
+    <ClCompile Include="infrastructure\repository\user_repository\user_repository.cpp">
+      <Filter>infrastructure\repository\user_repository</Filter>
+    </ClCompile>
+    <ClCompile Include="application\interfaces\i_auth_console.h">
+      <Filter>application\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="infrastructure\repository\driver_repository\driver_repository.cpp">
+      <Filter>infrastructure\repository\driver_repository</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

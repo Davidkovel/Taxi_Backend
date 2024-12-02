@@ -5,15 +5,15 @@
 #include "../../infrastructure/network/api_client_impl.h"
 #include "../../adapters/session.h"
 
-#include "../use_cases/booking.h"
-#include "../use_cases/save_user_booking_orders.h"
-#include "../use_cases/user_balance.h"
+#include "../services/booking_service.h"
+#include "../services/save_orders_to_csv_service.h"
+#include "../services/user_balance_service.h"
 
 class PassengerDTO {
 private:
-    Booking booking;
-    UserBalance user_balance;
-    SaveBookingOrders save_booking;
+    BookingService booking;
+    UserBalanceService user_balance;
+    SaveBookingOrdersService save_booking;
     DatabaseProvider* dbProvider;
     Session* session = Session::getInstance();
 
@@ -31,7 +31,7 @@ public:
             user_balance.deposit();
             break;
         case 3:
-            save_booking.save_to_csv(session->getUserId(), "user_orders.csv");
+            save_booking.save_to_csv(session->getUserId(), session->getUserEmail() + ".csv");
             break;
         default:
             cout << "Invalid choice. Try again!" << endl;
@@ -48,8 +48,8 @@ public:
 
 class DriverDTO {
 private:
-    UserBalance user_balance;
-    SaveBookingOrders save_booking;
+    UserBalanceService user_balance;
+    SaveBookingOrdersService save_booking;
     DatabaseProvider* dbProvider;
     Session* session = Session::getInstance();
 
@@ -64,10 +64,10 @@ public:
             user_balance.withdraw();
             break;
         case 2:
-            user_balance.TotallyDriverEarned(session->getUserId());
+            user_balance.statistic(session->getUserId());
             break;
         case 3:
-            save_booking.save_to_csv(session->getUserId(), "driver_orders.csv");
+            save_booking.save_to_csv(session->getUserId(), session->getUserEmail());
             break;
         default:
             cout << "Invalid choice. Try again!" << endl;

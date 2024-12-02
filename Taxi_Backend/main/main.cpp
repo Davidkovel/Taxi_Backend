@@ -1,15 +1,15 @@
 #include "../domain/domain.h"
-#include "../presentation/auth_console_ui.h"
 #include "../lib/logger.h"
-// db connection
-#include "../infrastructure/database/db_connection.h"
+
+#include "../presentation/auth_console_ui.h"
 #include "../infrastructure/db_provider.h"
+#include "../infrastructure/database/db_connection.h"
 
 int main()
 {
     auto& logger = logger::Logger::getInstance();
 
-    logger.setLoggingEnabled(true);
+    logger.setLoggingEnabled(false);
     logger.info("The application started");
 
     string db_path = "example.db";

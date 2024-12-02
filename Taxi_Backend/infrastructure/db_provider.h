@@ -22,6 +22,12 @@ public:
         driverRepository(&dbConn),
         orderRepository(&dbConn) {}
     
+
+    // TEMPORALLY METHOD
+    SQLiteUserRepository* setUserRepositoryForInteractor() {
+        return &userRepository;
+    }
+
     // TEMPORALLY METHOD
     SQLiteUserRepository& setUserRepositoryForConsole() {
         return userRepository;

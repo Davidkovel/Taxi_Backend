@@ -58,6 +58,12 @@
     <Filter Include="infrastructure\repository\driver_repository">
       <UniqueIdentifier>{c7ffe9a9-842d-4641-90c1-62648a4f2fbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="domain\services">
+      <UniqueIdentifier>{f7ccf43f-e708-4bec-91d2-ed8583980a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application\utils">
+      <UniqueIdentifier>{259d1951-b560-410d-a892-6063e74dfa5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\lib.h">
@@ -89,9 +95,6 @@
     </ClInclude>
     <ClInclude Include="infrastructure\repository\user_repository\user_repository.h">
       <Filter>infrastructure\repository\user_repository</Filter>
-    </ClInclude>
-    <ClInclude Include="domain\enteties\user.h">
-      <Filter>domain\enteties</Filter>
     </ClInclude>
     <ClInclude Include="infrastructure\network\api_client_impl.h">
       <Filter>infrastructure\network</Filter>
@@ -129,9 +132,6 @@
     <ClInclude Include="application\interfaces\api_client_interface.h">
       <Filter>application\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="domain\use_cases\auth_service.h">
-      <Filter>domain\use_cases</Filter>
-    </ClInclude>
     <ClInclude Include="domain\use_cases\booking.h">
       <Filter>domain\use_cases</Filter>
     </ClInclude>
@@ -162,8 +162,29 @@
     <ClInclude Include="application\interfaces\driver_repository_interface.h">
       <Filter>application\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="domain\use_cases\driver_statistic.h">
-      <Filter>domain\use_cases</Filter>
+    <ClInclude Include="domain\services\booking_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\save_orders_to_csv_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\user_balance_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\auth_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\services\calculate_distance_service.h">
+      <Filter>domain\services</Filter>
+    </ClInclude>
+    <ClInclude Include="presentation\console_utils.h">
+      <Filter>presentation</Filter>
+    </ClInclude>
+    <ClInclude Include="application\utils\style_decorator.h">
+      <Filter>application\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="domain\enteties\user.h">
+      <Filter>domain\enteties</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,5 +203,8 @@
     <ClCompile Include="infrastructure\repository\driver_repository\driver_repository.cpp">
       <Filter>infrastructure\repository\driver_repository</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

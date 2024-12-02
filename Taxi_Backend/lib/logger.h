@@ -31,6 +31,9 @@ namespace logger {
         LogLevel logLevel;
         bool loggingEnabled;
 
+        string elasticsearchUrl = "http://localhost:9200/logs/_doc";
+        bool elasticsearchEnabled = false;
+
         map<LogLevel, string> levelToString{
             {LogLevel::INFO, "INFO"},
             {LogLevel::DEBUG, "DEBUG"},
@@ -47,7 +50,7 @@ namespace logger {
 
         string resetColor = "\033[0m";
 
-        Logger(const string& filePath = "default.log", LogLevel level = LogLevel::INFO, bool enableLogging = true)
+        Logger(const string& filePath =  "deffault.log", LogLevel level = LogLevel::INFO, bool enableLogging = true)
             : logLevel(level), loggingEnabled(enableLogging) {
             logFile.open(filePath, ios::app);
             if (!logFile.is_open()) {
@@ -59,6 +62,29 @@ namespace logger {
             if (logFile.is_open()) {
                 logFile.close();
             }
+        }
+
+        void sendToElasticsearch(LogLevel level, const string& message) {
+            if (!elasticsearchEnabled || elasticsearchUrl.empty()) return;
+
+            CURL* curl = curl_easy_init();
+            if (!curl) return;
+
+            string payload = R"({"timestamp":")" + getCurrentTimestamp() + R"(", "level":")" +
+                levelToString[level] + R"(", "message":")" + message + R"("})";
+
+            curl_easy_setopt(curl, CURLOPT_URL, elasticsearchUrl.c_str());
+            curl_easy_setopt(curl, CURLOPT_POST, 1L);
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload.c_str());
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, payload.size());
+            curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curl_slist_append(nullptr, "Content-Type: application/json"));
+
+            CURLcode res = curl_easy_perform(curl);
+            if (res != CURLE_OK) {
+                cerr << "Failed to send log to Elasticsearch: " << curl_easy_strerror(res) << endl;
+            }
+
+            curl_easy_cleanup(curl);
         }
 
     public:
@@ -85,6 +111,8 @@ namespace logger {
                 if (logFile.is_open()) {
                     logFile << logMessage << endl;
                 }
+
+               // sendToElasticsearch(level, message);
             }
         }
 

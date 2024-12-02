@@ -1,53 +1,26 @@
-#ifndef SAVE_USER_BOOKING_ORDERS
-#define SAVE_USER_BOOKING_ORDERS
+#ifndef SAVE_ORDERS_CSV_USE_CASE_H
+#define SAVE_ORDERS_CSV_USE_CASE_H
 
-#include "../domain.h"
+#include "../services/save_orders_to_csv_service.h"
 
-class SaveBookingOrders
-{
+class SaveOrdersCsvUseCase {
 private:
-    SQLiteOrderRepository* orderRepo;
+    SaveBookingOrdersService* save_booking_orders_service;
+
 public:
-    SaveBookingOrders() = default;
-    SaveBookingOrders(SQLiteOrderRepository* repo)
-        : orderRepo(repo) {}
+    SaveOrdersCsvUseCase() : save_booking_orders_service(nullptr) {}
 
-    void set_query_db(DatabaseProvider* provider)
+    explicit SaveOrdersCsvUseCase(SaveBookingOrdersService* service) : save_booking_orders_service(service) {}
+
+    void initial_queries(DatabaseProvider* dbProvider)
     {
-        this->orderRepo = provider->setOrderRepository();
+        save_booking_orders_service->set_query_db(dbProvider);
     }
 
-    void save_to_csv(int user_id, const string& file_path) {
-        auto& logger = logger::Logger::getInstance();
-        map<int, tuple<string, string, string, double>> orders = orderRepo->saveUserOrders(user_id);
-
-        ofstream file(file_path);
-        logger.info("File opened");
-        if (!file.is_open()) {
-            logger.error("Error opening file for writing");
-            throw exceptions::CSVFileException("Error opening file for writing:" + file_path);
-            return;
-        }
-
-        // CSV headers
-        file << "OrderID,FromAddress,ToAddress,Status,Price\n";
-
-        for (const auto& order : orders) {
-            int orderId = order.first;
-            string from_address = get<0>(order.second);
-            string to_address = get<1>(order.second);
-            string status = get<2>(order.second);
-            double price = get<3>(order.second);
-
-            file << orderId << "," << from_address << "," << to_address << ","
-                << status << "," << price << "\n";
-        }
-
-        file.close();
-        logger.info("file closed");
-        logger.info("Orders saved successfully to " + file_path);
+    void execute(int user_id, const string& file_name) {
+        save_booking_orders_service->save_to_csv(user_id, file_name);
     }
-
 };
 
-#endif // !SAVE_USER_BOOKING_ORDERS
+#endif // SAVE_ORDERS_CSV_USE_CASE_H
+    

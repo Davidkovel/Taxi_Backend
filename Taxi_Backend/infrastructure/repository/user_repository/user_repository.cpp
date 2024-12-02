@@ -65,21 +65,17 @@ User* SQLiteUserRepository::findUserByEmail(const string& email) {
     sqlite3_stmt* stmt = nullptr;
 
     try {
-        // Подготовка SQL-запроса
         if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
             throw exceptions::DBException("Failed to prepare SQL query", sqlite3_errmsg(dbConn->getConnection()));
         }
 
-        // Привязка параметра email
         if (sqlite3_bind_text(stmt, 1, email.c_str(), -1, SQLITE_TRANSIENT) != SQLITE_OK) {
             sqlite3_finalize(stmt);
             throw exceptions::DBException("Failed to bind email parameter", sqlite3_errmsg(dbConn->getConnection()));
         }
 
-        // Выполнение запроса
         if (sqlite3_step(stmt) == SQLITE_ROW) {
-            // Извлечение данных из результата
-            int userId = sqlite3_column_int(stmt, 0); // Извлечение user_id
+            int userId = sqlite3_column_int(stmt, 0);
             string name = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
             int age = sqlite3_column_int(stmt, 2);
             string retrievedEmail = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
@@ -87,7 +83,6 @@ User* SQLiteUserRepository::findUserByEmail(const string& email) {
             double balance = sqlite3_column_double(stmt, 5);
             string role = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 6));
 
-            // Финализация запроса
             sqlite3_finalize(stmt);
 
             int* userIdPtr = new int(userId);
@@ -102,14 +97,13 @@ User* SQLiteUserRepository::findUserByEmail(const string& email) {
             }
         }
 
-        // Пользователь не найден
         sqlite3_finalize(stmt);
         return nullptr;
 
     }
     catch (const exception& ex) {
         if (stmt) sqlite3_finalize(stmt);
-        throw; // Повторное выбрасывание исключения
+        throw;
         throw exceptions::DBException("Error fetching user by ID", ex.what());
     }
 }

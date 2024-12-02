@@ -1,16 +1,16 @@
-#ifndef AUTH_SERVICE_USE_CASE_H
-#define AUTH_SERVICE_USE_CASE_H
+#ifndef AUTH_SERVICE_H
+#define AUTH_SERVICE_H
 
 #include "../domain.h"
+#include "../../adapters/session.h"
 #include "../../infrastructure/repository/user_repository/user_repository.h"
 #include "../../infrastructure/security/hash_util.h"
-#include "../../adapters/session.h"
 
-class AuthUseCase {
+class AuthService {
 private:
     SQLiteUserRepository& userRepo;
 public:
-    AuthUseCase(SQLiteUserRepository& repo) : userRepo(repo) {}
+    AuthService(SQLiteUserRepository& repo) : userRepo(repo) {}
 
     bool registerUser(const string& username, int age, const string& email, const string& password, const string& role) {
         if (userRepo.userExists(username)) {
@@ -51,13 +51,17 @@ public:
 
             cout << endl;
             if (role == "Passenger") {
-                cout << "Welcome, Passenger " << user->getName() << "!" << endl;
+                ;
+                // cout << "Welcome, Passenger " << user->getName() << "!" << endl;
             }
             else if (role == "Driver") {
-                cout << "Welcome, Driver " << user->getName() << "!" << endl;
+                ;
+                // __asm {nop};
+                // cout << "Welcome, Driver " << user->getName() << "!" << endl;
             }
             else {
-                cout << "Welcome, " << user->getName() << "!" << endl;
+                ;
+                // cout << "Welcome, " << user->getName() << "!" << endl;
             }
 
             Session::getInstance()->setUser(user->getUserId() ? *user->getUserId() : -1, user->getEmail(), role);
@@ -65,11 +69,11 @@ public:
             return true;
         }
         else {
-            cout << "Invalid password!" << endl;
+            cout << "DEV MODE: Invalid password!" << endl;
             delete user;
             return false;
         }
     }
 };
 
-#endif // AUTH_SERVICE_USE_CASE_H
+#endif // AUTH_SERVICE_H

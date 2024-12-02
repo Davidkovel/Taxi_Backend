@@ -41,13 +41,11 @@ OrderMap SQLiteOrderRepository::saveUserOrders(int user_id) {
     string sql = "SELECT order_id, from_adress, to_adress, status, price FROM orders WHERE user_id = ?;";
     sqlite3_stmt* stmt;
 
-    // Prepare the SQL statement
     if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
         throw exceptions::DBException("Failed to prepare statement : " + string(sqlite3_errmsg(dbConn->getConnection())));
         return ordersMap;
     }
 
-    // Bind the user_id parameter
     if (sqlite3_bind_int(stmt, 1, user_id) != SQLITE_OK) {
         throw exceptions::DBException("Failed to bind user_id: " + string(sqlite3_errmsg(dbConn->getConnection())));
         sqlite3_finalize(stmt);
@@ -67,4 +65,29 @@ OrderMap SQLiteOrderRepository::saveUserOrders(int user_id) {
     sqlite3_finalize(stmt);
 
     return ordersMap;
+}
+
+map<int, int> SQLiteOrderRepository::getDriverOrderStats(int driver_id) {
+    map<int, int> statsMap;
+    string sql = "SELECT user_id, COUNT(order_id) AS total_orders FROM orders WHERE user_id = ? GROUP BY user_id;";
+    sqlite3_stmt* stmt;
+
+    if (sqlite3_prepare_v2(dbConn->getConnection(), sql.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        throw runtime_error("Failed to prepare statement: " + string(sqlite3_errmsg(dbConn->getConnection())));
+    }
+
+    if (sqlite3_bind_int(stmt, 1, driver_id) != SQLITE_OK) {
+        sqlite3_finalize(stmt);
+        throw runtime_error("Failed to bind driver_id: " + string(sqlite3_errmsg(dbConn->getConnection())));
+    }
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        int driverId = sqlite3_column_int(stmt, 0);
+        int totalOrders = sqlite3_column_int(stmt, 1);
+
+        statsMap[driverId] = totalOrders;
+    }
+
+    sqlite3_finalize(stmt);
+    return statsMap;
 }

@@ -1,123 +1,44 @@
-#ifndef USER_BALANCE_H
-#define USER_BALANCE_H
+#ifndef USER_BALANCE_USE_CASE_H
+#define USER_BALANCE_USE_CASE_H
 
-#include "../domain.h"
-#include "../../infrastructure/db_provider.h"
-#include "../../infrastructure/repository/user_repository/user_repository.h"
-#include "../../adapters/session.h"
+#include "../services/user_balance_service.h"
 
-class UserBalance
-{
+class UserBalanceUseCase {
 private:
-    SQLiteUserRepository* userRepo;
-
-    User* updateBalance(int userId, double amount) {
-        auto& logger = logger::Logger::getInstance();
-        User* user = userRepo->findUserById(userId);
-
-        if (!user) {
-            logger.error("User not found");
-            throw exceptions::ProcessException("User not found");
-        }
-
-        string email = user->getEmail();
-        double newBalance = user->getBalance() + amount;
-        if (newBalance < 0) {
-            throw exceptions::ProcessException("Insufficient balance for this operation");
-        }
-        user->setBalance(newBalance);
-
-        userRepo->updateUserBalance(email, newBalance);
-
-        return user;
-    }
-
-    double promptAmount(const string& operation) {
-        double amount;
-        cout << "Enter amount to " << operation << ": ";
-        cin >> amount;
-        cin.ignore();
-        return amount;
-    }
+    UserBalanceService* user_balance_service;
 
 public:
-    UserBalance() = default;
+    UserBalanceUseCase() : user_balance_service(nullptr) {}
 
-    void set_query_db(DatabaseProvider* provider)
-    {
-        this->userRepo = provider->setUserRepository();
-    }
-
-    void deposit() {
-        try {
-            int userId = session->getUserId();
-            double amount = promptAmount("deposit");
-
-            if (amount <= 0) {
-                throw exceptions::ProcessException("Deposit amount must be greater than zero");
-            }
-
-            User* updatedUser = updateBalance(userId, amount);
-            cout << "Deposit successful! New balance: " << updatedUser->getBalance() << endl;
-
-            delete updatedUser;
-        }
-        catch (exception& ex)
-        {
-            cerr << "Error deposit: " << ex.what() << endl;
+    explicit UserBalanceUseCase(UserBalanceService* service)
+        : user_balance_service(service) {
+        if (!user_balance_service) {
+            cerr << "UserBalanceService is not initialized!";
         }
     }
 
-    bool deductBalance(int userId, double amount) {
-        User* user = userRepo->findUserByEmail(session->getUserEmail());
-        if (user == nullptr) {
-            throw runtime_error("User not found");
+    void execute_deposit() {
+        if (!user_balance_service) {
+            cerr << "UserBalanceService is not available!";
         }
+        user_balance_service->deposit();
+    }
+    //void initial_queries(DatabaseProvider* dbProvider)
+    //{
+    //    user_balance_service->set_query_db(dbProvider->setUserRepository());
+    //}
 
-        double currentBalance = user->getBalance();
-        if (currentBalance < amount) {
-            return false;
-        }
+    //void execute_deposit() {
+    //    user_balance_service->deposit();
+    //}
 
-        double newBalance = currentBalance - amount;
-        user->setBalance(newBalance);
-
-        userRepo->updateUserBalance(user->getEmail(), newBalance);
-        delete user;
-        return true;
+    void execute_withdraw() {
+        user_balance_service->withdraw();
     }
 
-    void withdraw() {
-        try {
-            int userId = session->getUserId();
-            double amount = promptAmount("withdraw");
-
-            if (amount <= 0) {
-                throw exceptions::ProcessException("Withdrawal amount must be greater than zero");
-            }
-
-            bool success = deductBalance(userId, amount);
-            cout << "Withdrawal successful!" << endl;
-
-        }
-        catch (const exception& ex)
-        {
-            cerr << "Error withdraw: " << ex.what() << endl;
-        }
+    void execute_statistic(int driver_id) {
+        user_balance_service->statistic(driver_id);
     }
-
-
-    double TotallyDriverEarned(int driver_id)
-    {
-
-        double earned_money = userRepo->getUserBalance(driver_id);
-        cout << "Congratulation you earned: " << earned_money << endl;
-        return earned_money;
-    }
-
-
-    ~UserBalance() {}
 };
 
-
-#endif // !USER_BALANCE_H
+#endif // USER_BALANCE_USE_CASE_H

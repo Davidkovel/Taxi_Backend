@@ -2,11 +2,13 @@
 #define PASSENGER_MENU_H
 
 #include "../application/interfaces/i_menu.h"
+#include "console_utils.h"
 
 class PassengerMenu : public IMenu<PassengerDTO> {
 public:
-    void displayMenu(PassengerDTO& dto) override {
+    void displayMenu(PassengerDTO& dto) override{
         while (true) {
+            ConsoleUtils::setColor(ConsoleUtils::BLUE);
             cout << "========================================" << endl;
             cout << "||         Passenger Menu             ||" << endl;
             cout << "========================================" << endl;
@@ -16,15 +18,22 @@ public:
             cout << "|| 4. Logout                          ||" << endl;
             cout << "========================================" << endl;
             cout << "|| Your option: ";
+            ConsoleUtils::resetColor();
 
             int choice;
             cin >> choice;
 
             if (choice == 4) {
-                cout << "Exiting to the login menu..." << endl;
+                system("cls");
+                ConsoleUtils::setColor(ConsoleUtils::GREEN);
+                ConsoleUtils::printAnimated("Exiting to the login menu...", 50);
+                ConsoleUtils::resetColor();
                 break;
             }
 
+            ConsoleUtils::setColor(ConsoleUtils::YELLOW);
+            ConsoleUtils::printAnimated("Processing your choice...", 50);
+            ConsoleUtils::resetColor();
             dto.call_function(choice);
         }
     }

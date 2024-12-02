@@ -12,6 +12,7 @@ public:
     SQLiteOrderRepository(DatabaseConnection* dbConn);
     void add_order(int user_id, const string& from_adress, const string& to_adress, const string& status, double price) override;
     OrderMap saveUserOrders(int user_id) override;
+    map<int, int> getDriverOrderStats(int driver_id) override;
 private:
     DatabaseConnection* dbConn;
 };

@@ -1,151 +1,25 @@
-#ifndef BOOKING_H
-#define BOOKING_H
+#ifndef BOOKING_USE_CASE_H
+#define BOOKING_USE_CASE_H
 
-#include "../domain.h"
-#include "../../lib/config.h"
-#include "../../lib/logger.h"
-#include "../../infrastructure/repository/order_repository/order_repository.h"
-#include "../../infrastructure/db_provider.h"
-#include "../../infrastructure/api_provider.h"
-#include "../../adapters/session.h"
+#include "../services/booking_service.h"
 
-#include "calculate_distance.h"
-#include "user_balance.h"
-
-class Booking {
+class BookingUseCase {
 private:
-    string fromAddress;
-    string toAddress;
-    double cost;
-    int user_id;
+    BookingService* bookingService;
 
-    SQLiteOrderRepository* orderRepo;
-    SQLiteUserRepository* userRepo;
-    SQLiteDriverRepository* driverRepo;
-    CalculateDistance* calculateDistance;
-    UserBalance* userBalanceService;
 public:
-    Booking() = default;
-    Booking(const string& from, const string& to, double cost, int userId, SQLiteOrderRepository* repo)
-        : fromAddress(from), toAddress(to), cost(cost), user_id(userId), orderRepo(repo) {}
+    BookingUseCase() : bookingService(nullptr) {}
 
-    void set_query_db(DatabaseProvider* provider)
+    explicit BookingUseCase(BookingService* service) : bookingService(service) {}
+
+    void initial_queries(DatabaseProvider* dbProvider)
     {
-        this->orderRepo = provider->setOrderRepository();
-        this->userRepo = provider->setUserRepository();
-        this->driverRepo = provider->setDriverRepository();
+        bookingService->set_query_db(dbProvider);
     }
 
-    void bookTaxi(string& from, string& to) {
-        try {
-            auto& logger = logger::Logger::getInstance();
-            string distance, duration;
-
-            vector<int> availableDrivers = driverRepo->getAvailableDriverIds();
-            if (availableDrivers.empty()) {
-                cout << "No available taxis at the moment. Please try again later." << endl;
-                logger.error("No available drivers for the booking.");
-                return;
-            }
-
-            random_device rd;
-            mt19937 gen(rd());
-            uniform_int_distribution<> dist(0, availableDrivers.size() - 1);
-
-            int randomIndex = dist(gen);
-            int selectedDriverId = availableDrivers[randomIndex];
-
-            ResponseData result_from_api = calculateDistance->execute(from, to, apiKey);
-
-            duration = result_from_api.duration;
-            double distance_2 = stod(result_from_api.distance);
-            double fare = calculateFare(distance_2);
-
-            bool success = deductFareFromUser(fare);
-            if (!success) {
-                logger.error("Not enough money");
-                cout << "You don't have enough money to pay for the taxi." << endl;
-                return;
-            }
-
-            orderRepo->add_order(session->getUserId(), from, to, "Completed", fare);
-            orderRepo->add_order(selectedDriverId, from, to, "Completed", fare);
-
-            User* driver = userRepo->findUserById(selectedDriverId);
-            if (!driver) {
-                throw runtime_error("Driver not found.");
-            }
-
-            double newBalanceDriver = driver->getBalance() + fare;
-            driverRepo->updateDriverBalance(selectedDriverId, newBalanceDriver);
-
-            cout << "Taxi booked from " << from << " to " << to << " with a fare of " << fare << " USD." << endl;
-            logger.info("Taxi booked succesfuly");
-        }
-        catch (const exception& ex) {
-            cerr << "Error during booking: " << ex.what() << endl;
-        }
+    void execute() {
+        bookingService->set_information_for_booking_taxi();
     }
-
-    
-    double calculateFare(double distance) {
-        this->cost = distance * 0.5;
-        cout << "Calculated fare: " << this->cost << " USD." << endl;
-        return this->cost;
-    }
-
-    bool deductFareFromUser(double fare) {
-        try {
-            auto& logger = logger::Logger::getInstance();
-            if (!userRepo) {
-                logger.error("User repository is not initialized");
-                throw runtime_error("User repository is not initialized");
-            }
-
-            User* user = userRepo->findUserById(session->getUserId());
-            if (!user) {
-                logger.error("User not found");
-                throw runtime_error("User not found");
-            }
-
-            if (user->getBalance() < fare) {
-                logger.error("Insufficient balance to book the taxi");
-                throw runtime_error("Insufficient balance to book the taxi");
-                return false;
-            }
-
-            double newBalance = user->getBalance() - fare;
-            userRepo->updateUserBalance(session->getUserEmail(), newBalance);
-
-            logger.info("Fare deducted successfully");
-            cout << "New balance: " << newBalance << endl;
-            return true;
-        }
-        catch (const exception& e) {
-            cerr << "Error deducting fare: " << e.what() << endl;
-            throw;
-        }
-    }
-    void set_information_for_booking_taxi()
-    {
-        string from, to;
-        cout << "Enter start address: ";
-        cin.ignore();
-        getline(cin, from);
-        cout << "Enter destination address: ";
-        getline(cin, to);
-
-        this->fromAddress = from;
-        this->toAddress = to;
-        bookTaxi(from, to);
-    }
-
-    void displayBookingInfo() const {
-        cout << "Booking from: " << fromAddress << endl;
-        cout << "To: " << toAddress << endl;
-        cout << "Cost: $" << cost << endl;
-    }
-
 };
 
-#endif // BOOKING_H
+#endif // BOOKING_USE_CASE_H

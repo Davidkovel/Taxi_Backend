@@ -38,6 +38,9 @@
 *Схема архiтектура проекту:* 
 ![image](https://github.com/user-attachments/assets/41cf0f90-b231-460c-8e63-4ead9f16d423)
 
+*Приклад архiтектура проекту:* 
+![image](https://github.com/user-attachments/assets/53b42314-ea1b-4d66-86c2-276b03a74c3c)
+
 ---
 
 ## Установка і запуск  
